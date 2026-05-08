@@ -1,0 +1,32 @@
+Plaguedoctor.merge {
+   adjectives [
+    "Noxious"
+    "Sickly"
+    "Parasitic"
+    "Poisonous"
+    "Toxic"
+    "Diseased"
+    "Covid"
+    "Mousey"
+    "Nauseous"
+    "Malignant"
+    "Mutated"
+    "Typhoid"
+    "Cancerous"
+   ]
+   nouns [
+    "Docs"
+    "Doktors"
+    "Doctors"
+    "Parasites"
+    "Lab Rats"
+    "Quacks"
+    "Morticians"
+    "Croakers"
+    "Empirics"
+    "Plague"
+    "Pests"
+    "Rats"
+    "Rodents"
+   ] 
+}

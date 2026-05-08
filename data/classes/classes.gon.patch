@@ -1,0 +1,193 @@
+Plaguedoctor.merge {
+    meta {
+        name "Plaguedoctor"
+        description "This is one doctor you don't want to see! Plaguedoctors are masters of poison, parasites and plagues! Also comes with a special Rat counterpart!"
+    }
+
+    innate_items {
+    }
+
+    innate_passives {
+        SpawnOnBattleStart = "PlagueRat"
+    }
+
+    graphics {
+        palette 186
+
+        alt_animations [
+            [idle cultistIdle]
+            [ClassToNeutral,   NecromancerToNeutral]
+            [ClassFromNeutral, NecromancerFromNeutral]
+            [StartTurn, NecromancerStartTurn]
+            [Victory, necromancerVictory]
+        ]
+
+        default_face happy
+        portrait_face necromancer_portrait
+    }
+
+    attack_pool [
+        PlaguedoctorInfectBasic
+    ]
+
+    ability_pool [ //44
+        SpawnRatPlaguedoctor
+        Myasis
+        TheChills
+        Transmit
+        Miasma
+        Menticide
+        PlagueOfRats
+        Swampwalk
+        DirtyNeedles
+        CadaverCart
+        SludgeBomb
+        AcidSpray
+        Pandemic
+        SummonPlagueRat
+        ForbiddenFallout
+        MutateMinion
+        Repurpose
+        BadBreath
+        Smog
+        PinkyShot
+        ZombificationSpores
+        StrangeMedicine
+        ParasiticBite
+        GammaBurst
+        MiracleOperation
+        AcidArmor
+        ToxicBarbs
+        GastroAcid
+        Hookworm
+        RatShot
+        RallyRats
+        PlagueBurst
+        ControlSludge
+        CraftDrugs
+        IpecacSpell
+        ForbiddenFlask
+        MalignantMagic
+        ToxicShock
+        WormForm
+        RatForm
+        PinkyBombs
+        Wormhole
+        SweetScent
+        Haze
+        SoulSickness
+    ]
+
+    complicated_abilities [
+        PlagueOfRats
+        ForbiddenFallout
+        Ipecac
+        ForbiddenFlask
+        RatForm
+    ]
+
+    starter_abilities [  
+        SpawnRatPlaguedoctor
+        SludgeBomb
+        Pandemic
+        MutateMinion
+        PinkyShot
+        ParasiticBite
+        ToxicShock
+        Haze
+        GammaBurst
+        SoulSickness
+    ]
+
+    ability_groups {
+        attack [ 
+            Miasma
+            SludgeBomb
+            AcidSpray
+            ForbiddenFallout
+            ParasiticBite
+            GammaBurst
+            PinkyShot
+            RatShot
+            PlagueBurst
+            IpecacSpell
+            ToxicShock
+            PinkyBombs
+        ]
+
+        /*defense [         ]*/ 
+
+        move [
+            Swampwalk
+            CadaverCart
+            Hookworm
+            Wormhole
+        ] 
+
+        misc [ 
+            SpawnRatPlaguedoctor
+            Myasis
+            TheChills
+            Transmit
+            Menticide
+            PlagueOfRats
+            DirtyNeedles
+            Pandemic
+            SummonPlagueRat
+            MutateMinion
+            Repurpose
+            BadBreath
+            Smog
+            ZombificationSpores
+            MiracleOperation
+            AcidArmor
+            ToxicBarbs
+            GastroAcid
+            RallyRats
+            CraftDrugs
+            ForbiddenFlask
+            MalignantMagic
+            WormForm
+            RatForm
+            SweetScent
+            Haze
+            SoulSickness
+        ] 
+    }
+    
+    passive_pool [ //17
+        SuperRat
+        ROUS
+        DeadlyDose
+        SwampThing
+        RadioactiveRegen
+        Rabid
+        Parasitologist
+        AcolyteOfGlorg
+        UnstableEvolution
+        DiseasedVermin
+        ACancerousRodent
+        Immunodeficiency
+        NuclearAnomaly
+        GroundZero
+        MaggotMotel
+        AfflictiveTouch
+        FloralScent
+    ]
+
+    complicated_passives [
+        RadioactiveRegen
+        Rabid
+        Parasitologist
+        AcolyteOfGlorg
+    ]
+
+    stat_mods {
+        int 2
+        con 2
+        spd -1
+        lck -2
+    }
+
+    levelup_stats [str con int]
+}

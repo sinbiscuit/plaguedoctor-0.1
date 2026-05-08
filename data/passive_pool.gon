@@ -1,0 +1,8 @@
+PlagueDoctorDiseases.append [ //for spells that give diseases
+    Covid
+    Ebola
+    Pox
+    CommonCold
+    FelineAids
+    Flu
+]

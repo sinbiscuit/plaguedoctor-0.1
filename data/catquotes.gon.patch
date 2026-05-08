@@ -1,0 +1,35 @@
+vs_boss_quotes.merge {
+    Plaguedoctor [
+      "Time for your check up! Unzip please!"
+      "I'm going to saw through your bones!"
+      "Would you like a second opinion? You are also ugly!"
+      "Sharing is caring!"
+    ]
+    
+}
+
+embark_quotes.merge {
+    Plaguedoctor [
+      "The doctor is in!"
+      "It's time for their examination!"
+      "Gesundheit!"
+      "Achoo! Achoo!"
+      "Itchies or wheezies?"
+    ]
+}
+
+return_early_quotes.merge { 
+    Plaguedoctor [
+      "I'm putting you all on bed rest."
+      "I think I'm going to be sick..."
+      "Aww rats!"
+    ]
+}
+
+return_quotes.merge { 
+   Plaguedoctor [
+      "Whoops! That was not medicine!"
+      "And that was how I lost my medical license!"
+      "Repeat after me! Thanks doc!"
+    ]
+}

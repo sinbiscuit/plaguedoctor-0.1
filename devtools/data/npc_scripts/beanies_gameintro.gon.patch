@@ -1,0 +1,8 @@
+sequences {
+	intro.overwrite {
+		unlock_controls 1
+		set_state choosecats
+		wait_for choose_cat1
+		wait_for choose_cat2
+}
+}

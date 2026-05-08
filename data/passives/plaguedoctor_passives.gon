@@ -1,0 +1,588 @@
+STARTER_PLACEHOLDER_Plaguedoctor {
+    icon STARTER_PLACEHOLDER_Fighter
+    name "PASSIVE_STARTER_PLACEHOLDER_NAME"
+    desc "o,_ o"
+    class Plaguedoctor
+}
+
+SuperRat = {
+    name = "Super Rat!"
+    desc = "Your plague rat has its abilities upgraded."
+    class = Plaguedoctor
+    1 {
+        passives {
+            ReplaceSpawnedObjects ["PlagueRat2", "PlagueRat3"]
+            ReplaceSpawnedObjects ["PlagueRat", "PlagueRat2"]
+        }
+    }   
+    
+
+    2 {
+        desc "Your plague rat has its abilities upgraded... Twice!"
+        passives {
+            ReplaceSpawnedObjects ["PlagueRat2", "PlagueRat3"]
+            ReplaceSpawnedObjects ["PlagueRat", "PlagueRat3"]
+        }
+    }   
+}
+
+ROUS = {
+    name = "R.O.U.S."
+    desc = "Your plague rat is bigger!"
+    class = Plaguedoctor
+    1 {
+        passives {            
+            ReplaceSpawnedObjects ["PlagueRat2x2", "PlagueRat3x3"]
+            ReplaceSpawnedObjects ["PlagueRat2x2_2", "PlagueRat3x3_2"]
+            ReplaceSpawnedObjects ["PlagueRat2x2_3", "PlagueRat3x3_3"]
+            ReplaceSpawnedObjects ["PlagueRat", "PlagueRat2x2"]
+            ReplaceSpawnedObjects ["PlagueRat2", "PlagueRat2x2_2"]
+            ReplaceSpawnedObjects ["PlagueRat3", "PlagueRat2x2_3"]
+        }
+    }   
+
+    2 {
+        desc "Your plague rat is even bigger!"
+        passives {
+            ReplaceSpawnedObjects ["PlagueRat2x2", "PlagueRat3x3"]
+            ReplaceSpawnedObjects ["PlagueRat2x2_2", "PlagueRat3x3_2"]
+            ReplaceSpawnedObjects ["PlagueRat2x2_3", "PlagueRat3x3_3"]
+            ReplaceSpawnedObjects ["PlagueRat", "PlagueRat3x3"]
+            ReplaceSpawnedObjects ["PlagueRat2", "PlagueRat3x3_2"]
+            ReplaceSpawnedObjects ["PlagueRat3", "PlagueRat3x3_3"]
+        }
+    }   
+}
+
+DeadlyDose = {
+    name "Deadly Dose"
+    desc "Whenever you inflict debuffs, inflict an extra stack of one."
+    class Plaguedoctor
+
+    1 {
+        passives {
+            AmplifyNegativeStatus 1
+
+        }
+    }
+    2 {
+        desc "Whenever you inflict debuffs, inflict two extra stacks of one."
+        passives {
+            AmplifyNegativeStatus 2
+        }
+    }
+}
+
+SwampThing {
+    name "Swamp Things"
+    desc "You are immune to Creep damage and water does not slow you down. Familiars you spawn also have this passive. At the end of the round, inflict Poison 1 to all enemies in water."
+    class Plaguedoctor
+
+    1 {
+        passives {
+            WaterWalk 1
+            ElementImmune Creep
+
+            AddPassivesToMinions {
+                WaterWalk 1
+                ElementImmune Creep
+            }
+
+            AutocastEachRound {
+                ability SwampThingDoT
+                //even_if_stunned true
+            }
+        }
+    }
+    2 {
+        desc "You are immune to Creep damage and water does not slow you down. Familiars you spawn also have this passive. At the end of the round, inflict Poison 1 to all enemies in water and then trigger their Poison and Bleed effects."
+        passives {
+            AutocastEachRound {
+                ability SwampThingDoT2
+                //even_if_stunned true
+            }
+        }
+    }
+}
+
+RadioactiveRegen {
+    name "Radioactive Regen"
+    desc "All injuries you get are Radiated. You get +3 Diminishing Health Regen at the start of battle for each Radiated Injury you have. This caps at 10 injuries."
+    class Plaguedoctor
+
+    1 {
+        passives {
+            ForceSpecificInjury radiated
+            StatusPerInjury {
+                injury radiated
+                cap 10
+
+                DiminishingHealthRegen 3
+            }
+        }
+    }
+
+    2 {
+        desc "All injuries you get are Radiated. You get +3 Diminishing Health Regen and Poisonous 1 for each Radiated Injury you have. This caps at 10 injuries."
+
+        passives {
+            ForceSpecificInjury radiated
+            StatusPerInjury {
+                injury radiated
+                cap 10
+
+                DiminishingHealthRegen 3
+                PoisonThorns 1
+            }
+        }
+    }
+}
+
+Rabid {
+    name "Rabid"
+    desc "Gain Rabies. You are immune to Madness, but become Uncontrollable if your INT is at 0 or less."
+    class Plaguedoctor
+
+    1 {
+        passives {
+            AbilityOnBattleStart AutoRabies
+            StatusImmunity [Madness PermanentMadness]
+
+            PassiveAtStatThreshold {
+                mode less_or_equal
+                threshold {
+                    int 0
+                }
+                passives {
+                    Uncontrollable 1
+                }
+            }
+        }
+    }
+    2 {
+        desc "Gain Rabies. You are immune to Madness, but become Uncontrollable and take an extra turn at the end of the round if your INT is at 0 or less."
+        passives {
+            PassiveAtStatThreshold {
+                mode less_or_equal
+                threshold {
+                    int 0
+                }
+                passives {
+                    Uncontrollable 1
+                    TogglableRoundEndExtraTurn 1
+                }
+            }
+        }
+    }
+}
+
+Parasitologist {
+    name "Parasitologist"
+    desc "You can unequip parasites freely. Find a parasite after each battle."
+    class Plaguedoctor
+
+    1 {
+        passives {
+            ParasitesArentCursed 1
+            StatusOnBattleEnd {
+                    FindItemFromPool UsefulParasites
+            }
+        }
+    }
+
+
+    2 {
+        desc "You can unequip parasites freely. Find a parasite after each battle, and you have a 33% chance to find a RARE parasite after battle."
+
+        passives {
+            ParasitesArentCursed 1
+            StatusOnBattleEnd {
+                FindItemFromPool UsefulParasites
+                Conditional_GoodRoll {
+                    odds 33%
+                    FindItemFromPool RareParasites
+                }
+            }
+        }
+    }
+}
+
+AcolyteOfGlorg {
+    name "Acolyte Of Glorg"
+    desc "Your spells cost -1 Mana for each parasite you have equipped."
+    class Plaguedoctor
+
+    1 {
+        passives {
+            ReduceSpellCostsPerParasite 1
+        }
+    }
+
+
+    2 {
+        desc "Your spells cost -1 Mana for each parasite you have equipped. Your spells inflict Rot 1 against enemies."
+
+        passives {
+            AddStatusToSpells {
+                Conditional_Enemy {
+                    Rot 1
+                }
+            }
+        }
+    }
+}
+
+UnstableEvolution {
+    name "Unstable Evolution"
+    desc "At the end of each turn, gain +3 to random stats and -1 to a random stat. At the end of each battle, gain +1 to a random stat and -1 to a random stat, permanently."
+    class Plaguedoctor
+
+    1 {
+        passives {
+            StatusEachTurnEnd {
+                RandomStatUp 3
+                RandomStatDown 1
+            }
+            StatusOnBattleEnd {
+                even_if_dead true
+                RandomPermanentStat 1
+                RandomPermanentStat -1
+            }
+        }
+    }
+    2 {
+        desc "At the end of each turn, gain +3 to a random stat, -1 to a random stat, and a random buff. At the end of each battle, gain +2 to a random stat and -1 to a random stat, permanently."
+
+        passives {
+            StatusEachTurnEnd {
+                RandomStatusFromPool {
+                    Thorns 1
+                    Brace 1
+                    BleedThorns 1
+                    KineticSpikes 1
+                    PoisonLace 1
+                    HealthRegenUp 1
+                    DamageUp 1
+                    SpellDamageUp 1
+                    ReduceManaCost 1
+                    PoisonThorns 1
+                    SerratedClaws 1
+                }
+            }
+            StatusOnBattleEnd {
+                even_if_dead true
+                RandomPermanentStat 2
+                RandomPermanentStat -1
+            }
+        }
+    }
+}
+
+DiseasedVermin {
+    name "Diseased Vermin"
+    desc "Familiars you spawn inflict Poison 1 with their basic attacks and have Poisonous 1. "
+    class Plaguedoctor
+
+    1 {
+        passives {
+            AddPassivesToMinions {
+                PoisonThorns 1
+                AddStatusToBasicAttack {
+                    Poison = 1
+                }
+            }
+        }
+    }
+    2 {
+        desc "Familiars you spawn inflict Poison 2 with their basic attacks and have Poisonous 2. "
+        passives {
+            AddPassivesToMinions {
+                PoisonThorns 1
+                AddStatusToBasicAttack {
+                    Poison = 2
+                }
+            }
+        }
+    }
+}
+
+ACancerousRodent {
+    name "A Cancerous Rodent"
+    desc "Adds a invincible Pinky to your team. It's basic attack instant kills nonboss enemies."
+    class Plaguedoctor
+
+    1 {
+        passives {
+            SpawnOnBattleStart = "CancerousRodent",
+        }
+    }
+    2 {
+        desc "Adds a invincible Champion Pinky to your team. It's basic attack instant kills nonboss enemies."
+        passives {
+            SpawnOnBattleStart = "VeryCancerousRodent_Champion",
+        }
+    }
+}
+
+Immunodeficiency {
+    name "Immunodeficiency"
+    desc "Enemies have -1 CON."
+    class Plaguedoctor
+
+    1 {
+        passives {
+            StatusAllCharactersOnSpawn {
+                Conditional_Enemy {
+                    ConstitutionUp -1
+                }
+            }
+        }
+    }
+    2 {
+        desc "Enemies have -2 CON. At the end of each round, all enemies lose a further -1 CON."
+        passives {
+            StatusAllCharactersOnSpawn {
+                Conditional_Enemy {
+                    ConstitutionUp -2
+                }
+            }
+            AutocastEachRound {
+                ability ImmunodeficiencyDoT
+                //even_if_stunned true
+            }
+        }
+    }
+}
+
+NuclearAnomaly {
+    name "Nuclear Anomaly"
+    desc "Whenever you move, explode adjacent tiles around you. You and familiars you spawn have Blast Resistance 2. Can mutate certain units."
+    class Plaguedoctor
+
+    1 {
+        passives {
+            BlastResistance 2
+
+            AddPassivesToMinions {
+                BlastResistance 2
+            }
+
+            DamageNeighborsAfterMove {
+                type spell
+                damage 5
+                knockback 1
+
+                effects {
+                    VisualFXTile Explosion
+                }
+                elements [
+                    Explosion
+                    Mutate
+                ]
+            }
+        }
+    }
+
+    2 {
+        desc "Whenever you move, explode more powerfully and poison adjacent tiles around you. You and familiars you spawn have Explosion immunity. Can mutate certain units."
+        passives {
+            ElementImmune Explosion
+
+            AddPassivesToMinions {
+                ElementImmune Explosion
+            }
+
+            DamageNeighborsAfterMove {
+                type spell
+                damage 8
+
+                effects {
+                    VisualFXTile Explosion
+                    Poison 1
+                }
+                elements [
+                    Explosion
+                    Mutate
+                ]
+            }
+        }
+    }
+}
+
+GroundZero  {
+    name "Ground Zero"
+    desc "Your explosions inflict Poison 1 and create Gas Clouds on tiles. You and familiars you spawn have Blast Resistance 2."
+    class Plaguedoctor
+
+    1 {
+        passives {
+            BlastResistance 2  
+            AddStatusToExplosions {
+                AddElement Mutate
+                Poison 1
+                DustOnHit {
+                    object GasCloud
+                }
+            }
+            ReplaceSpawnedObjects ["SuperBomb", "SuperPlagueBomb"]
+            ReplaceSpawnedObjects ["Bomb", "PlagueBomb"]
+            ReplaceSpawnedObjects ["PinkyBomb", "PlaguePinkyBomb"]
+
+            AddPassivesToMinions {
+                BlastResistance 2
+                AddStatusToExplosions {
+                    AddElement Mutate
+                    Poison 1
+                    DustOnHit {
+                        object GasCloud
+                    }
+                }
+            }
+        }
+    }
+    2 {
+        desc "Your explosions inflict Poison 3 and create Gas Clouds on tiles. You and familiars you spawn have Blast Resistance 4 and are immune to Poison. "
+        passives {
+            BlastResistance 4  
+            StatusImmunity Poison 
+            AddStatusToExplosions {
+                AddElement Mutate
+                Poison 3
+                DustOnHit {
+                    object GasCloud
+                }
+            }
+            ReplaceSpawnedObjects ["SuperBomb", "SuperPlagueBomb2"]
+            ReplaceSpawnedObjects ["Bomb", "PlagueBomb2"]
+            ReplaceSpawnedObjects ["PinkyBomb", "PlaguePinkyBomb2"]
+
+            AddPassivesToMinions {
+                BlastResistance 4
+                StatusImmunity Poison 
+                AddStatusToExplosions {
+                    AddElement Mutate
+                    Poison 3
+                    DustOnHit {
+                        object GasCloud
+                    }
+                }
+            }
+        }
+    }
+}
+
+MaggotMotel {
+    name "Maggot Motel"
+    desc "At the end of your turn, spawn Maggot familiars equal to the number of turns you've taken this battle."
+    class Plaguedoctor
+
+    1 {
+        passives {
+            StatusEachTurnEndForEachTurn {
+                ObjectOnHitCharacter {
+                    stacks 1
+                    object CharmedMaggot
+                }
+            }
+        }
+    }
+    2 {
+        desc "At the end of your turn, spawn Maggot familiars equal to the number of turns you've taken this battle plus two."
+
+        passives {
+            StatusEachTurnEnd {
+                ObjectOnHitCharacter {
+                    stacks 2
+                    object CharmedMaggot
+                }
+            }
+            StatusEachTurnEndForEachTurn {
+                ObjectOnHitCharacter {
+                    stacks 1
+                    object CharmedMaggot
+                }
+            }
+        }
+    }
+}
+
+Immunodeficiency {
+    name "Immunodeficiency"
+    desc "Enemies have -1 CON."
+    class Plaguedoctor
+
+    1 {
+        passives {
+            StatusAllCharactersOnSpawn {
+                Conditional_Enemy {
+                    ConstitutionUp -1
+                }
+            }
+        }
+    }
+    2 {
+        desc "Enemies have -2 CON. At the end of each round, all enemies lose a further -1 CON."
+        passives {
+            StatusAllCharactersOnSpawn {
+                Conditional_Enemy {
+                    ConstitutionUp -2
+                }
+            }
+            AutocastEachRound {
+                ability ImmunodeficiencyDoT
+                //even_if_stunned true
+            }
+        }
+    }
+}
+
+AfflictiveTouch {
+    name "Afflictive Touch"
+    desc "Your basic attack triggers the Poison, Bleed and Burn of a unit."
+    class Plaguedoctor
+
+    1 {
+        passives {
+            AddStatusToBasicAttack {
+                TriggerDOTStatuses 0
+            }
+        }
+    }
+    2 {
+        desc "Your basic attack and when you make contact triggers the Poison, Bleed and Burn of a unit."
+        passives {
+            MeleeRevengeDamage {
+                effects {
+                    TriggerDOTStatuses 0
+                }
+            }
+        }
+    }
+}
+
+FloralScent {
+    name "Floral Scent"
+    desc "At the end of your turn, heal other allies around you for 2 HP and remove 1 stack of a random debuff."
+    class Plaguedoctor
+
+    1 {
+        passives {
+            AutocastEachTurn {
+                ability FloralScentAoE
+                force_display_name false
+                //even_if_stunned true
+            }
+        }
+    }
+    2 {
+        desc "At the end of your turn, heal other allies around you for 3 HP and remove 2 stacks of random debuffs. You have +2 Health Regeneration."
+        passives {
+            AutocastEachTurn {
+                ability FloralScentAoE2
+                force_display_name false
+                //even_if_stunned true
+            }
+            HealthRegenUp 2
+        }
+    }
+}

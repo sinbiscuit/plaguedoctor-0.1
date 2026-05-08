@@ -1,0 +1,389 @@
+RatMelee {
+    template dash_attack
+    
+    meta {
+        name "Push Attack"
+        desc "Dash forward one space, then melee attack with Knockback."
+        animate_name false
+        class Plaguedoctor
+    }
+
+    graphics {
+        dash_start_animation dashstart
+        dash_animation dash
+        //dash_end_animation dashend
+        dash_attack_animation dashatk
+    }
+
+    target { 
+        max_range 1+bonus_range
+        max_aoe 1+bonus_melee_range
+        aoe_restrictions must_have_line_of_sight_unpurgable
+    }
+
+    damage_instance {
+        damage 5+bonus_melee_damage
+        knockback 1
+    }
+}
+
+RatDash {
+    template dash_attack
+    
+    meta {
+        ability_icon "Dash" // 
+        name "Dash"
+        desc "Dash forward and attack with knockback."
+        class Plaguedoctor
+    }
+    
+    graphics {
+        dash_start_animation dashstart
+        dash_animation dash
+        //dash_end_animation dashend
+        dash_attack_animation dashatk 
+    }
+
+    sounds { 
+        ontrigger SE_BullRushDash 
+    } 
+    
+    cost {
+        infcantrip true // 
+        mana 6 // 
+    }
+    
+    target {
+
+    }
+    
+    damage_instance {
+        damage 5+bonus_melee_ability_damage
+        knockback 1 
+    }
+}
+
+RatDash2 { 
+    variant_of RatDash
+
+    meta {
+        desc = "Dash forward and attack with knockback. Repeat this if you hit something."
+    },
+
+    temporary_effects {
+        DashFury 4
+    }
+},
+
+RatDash3 { 
+    variant_of RatDash2
+
+    meta {
+        desc = "Dash forward and attack with knockback. Repeat this if you hit something. Also apply Poison 1."
+    },
+    
+    damage_instance {
+        effects {
+            Poison 1
+        }
+    }
+},
+
+RatDump = {
+    template = melee_attack,
+    meta = {
+      name = "Dump",
+      desc = "Spawn a poop on an adjacent tile.",
+      class = Plaguedoctor,
+      type_icon = defense,
+    },
+    graphics = {
+      animation = poopfart,
+    },
+    cost = {
+      mana = 3,
+      infcantrip = true,
+    },
+    target = {
+      target_mode = direction,
+      aoe_mode = line,
+      min_aoe = 1,
+      max_aoe = 1,
+      restrictions = {
+        aoe_must_be_displaceable,
+        aoe_must_exist,
+      },
+    },
+    damage_instance = {
+      damage = 0,
+      cant_miss = true,
+      incidentally_collects_pickups = false,
+      effects = {
+        Displace = 1,
+        ObjectOnHit = {
+          object = Poop,
+        },
+      },
+    },
+},
+
+RatDump2 { 
+    variant_of RatDump
+
+    meta {
+        desc = "Spawn a poop on an adjacent tile. Inflict Poison 3 and a 15% chance to Stun if you poop on a unit."
+    },
+
+    damage_instance = {
+        effects = {
+            Poison 3,
+            Stun [1, .15]
+        },
+    }
+},
+
+RatDump3 { 
+    variant_of RatDump
+
+    meta {
+        desc = "Spawn a poop on an adjacent tile. Poison 3 and a 25% chance to Stun or give Covid if you poop on a unit."
+    },
+
+    damage_instance = {
+        effects = {
+            Poison 3,
+            Stun [1, .25]
+            SpreadDisease {
+                chance 25%
+                disease Covid
+                can_apply_to_anything true
+            }
+        },
+    }
+},
+
+
+CharmedCarcusSpawn {
+    template spawn
+    
+    graphics {
+        lob true
+        animation spawn
+        dont_orient true
+        dont_visualize_ai true
+    }
+    
+    
+    target {
+        max_range 1
+        allow_any_orientation true
+    }
+
+    spawn {
+        object [CharmedMaggot]
+        first_turn initiative
+        faction self
+    }
+}
+
+VeryCancerousMeleeAttack {
+    template melee_attack
+
+    graphics {
+        animation Default
+
+        damage_threshold_altanimations {
+            heavyMelee 10
+            heaviestMelee 20
+        }
+    }
+    
+    meta {
+        name "Very Cancerous Melee Attack"
+        desc "YOU DIE-DIE NOW"
+        animate_name false
+    }
+
+    target { 
+        max_aoe 1+bonus_melee_range
+        aoe_restrictions must_have_line_of_sight_unpurgable //TODO: MAKE THIS WORK PROPERLY IF ENLARGED
+    }
+
+    damage_instance {
+        damage 1
+
+        effects {
+            Instakill 25
+        }
+    }
+}
+
+SuperBombExplode {
+    variant_of BombExplode
+    
+    target {
+        aoe_mode all        
+        aoe_restrictions must_have_piercing_line_of_sight
+    }
+}
+
+
+PlagueBombExplode {
+    variant_of BombExplode
+    
+    damage_instance {
+        damage 10
+        elements [
+            Fire
+            Explosion
+        ]
+        effects {
+            Poison 1
+            DustOnHit {
+                object GasCloud
+            }
+        }
+        ai_base_score 9999
+    }
+}
+
+PlagueBombExplode2 {
+    variant_of BombExplode
+    
+    damage_instance {
+        damage 10
+        elements [
+            Fire
+            Explosion
+        ]
+        effects {
+            Poison 3
+            DustOnHit {
+                object GasCloud
+            }
+        }
+        ai_base_score 9999
+    }
+}
+
+SuperPlagueBombExplode {
+    variant_of BombExplode
+    
+    target {
+        aoe_mode all        
+        aoe_restrictions must_have_piercing_line_of_sight
+    }
+
+    damage_instance {
+        damage 10
+        elements [
+            Fire
+            Explosion
+        ]
+        effects {
+            Poison 1
+            DustOnHit {
+                object GasCloud
+            }
+        }
+        ai_base_score 9999
+    }
+}
+
+SuperPlagueBombExplode2 {
+    variant_of BombExplode
+    
+    target {
+        aoe_mode all        
+        aoe_restrictions must_have_piercing_line_of_sight
+    }
+
+    damage_instance {
+        damage 10
+        elements [
+            Fire
+            Explosion
+        ]
+        effects {
+            Poison 3
+            DustOnHit {
+                object GasCloud
+            }
+        }
+        ai_base_score 9999
+    }
+}
+
+PinkyBombExplode {
+    template spell
+    
+    graphics { 
+        dont_orient true
+        particle Explosion
+        animation explode
+        delay 1
+    }
+    
+    cost {
+        mana 5
+    }
+    
+    target {
+        aoe_mode pierce_cross
+        knockback_mode character_to_tile
+        
+        target_mode none
+        min_range 0
+        max_range 0
+        
+        min_aoe 1
+        max_aoe 1
+    }
+    
+    damage_instance {
+        damage 5
+        elements [
+            Fire
+            Explosion
+        ]
+        ai_base_score 9999
+    }
+}
+
+PlaguePinkyBombExplode {
+    variant_of PinkyBombExplode
+    
+    damage_instance {
+        damage 5
+        elements [
+            Fire
+            Explosion
+        ]
+        effects {
+            Poison 1
+            DustOnHit {
+                object GasCloud
+            }
+        }
+        ai_base_score 9999
+    }
+}
+
+PlaguePinkyBombExplode2 {
+    variant_of PinkyBombExplode
+    
+    damage_instance {
+        damage 5
+        elements [
+            Fire
+            Explosion
+        ]
+        effects {
+            Poison 3
+            DustOnHit {
+                object GasCloud
+            }
+        }
+        ai_base_score 9999
+    }
+}

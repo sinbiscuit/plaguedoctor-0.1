@@ -1,0 +1,3056 @@
+STARTER_PLACEHOLDER_Plaguedoctor {
+    template placeholder
+    
+    meta {
+        ability_icon STARTER_PLACEHOLDER_Fighter
+        name "ABILITY_STARTER_PLACEHOLDER_NAME"
+        desc "o,_ o"
+        class Plaguedoctor
+    }
+}
+
+PlaguedoctorInfect = {
+    template spell
+
+    meta {
+        name "Infect"
+        desc "Deal low damage while inflicting Poison 1 to a unit."
+        animate_name false
+        class Plaguedoctor
+    }
+
+    graphics {
+        particle PoisonPoof
+        animation evilMagic
+    }
+    
+    cost {
+        move_points 0
+        act_points 1
+    }
+    
+    target {
+        max_aoe 0
+        max_range 4
+    }
+    
+    damage_instance {
+        damage 1+bonus_basic_spell_damage
+
+        effects {
+            Poison 1
+        }
+    }
+},
+
+PlaguedoctorInfectBasic {
+    variant_of PlaguedoctorInfect
+    meta {
+        ability_icon Pestilence
+        class Plaguedoctor
+    }
+}
+
+SpawnRatPlaguedoctor {
+    template spawn
+
+    meta {
+        name "Spawn Rat"
+        desc "Summon a Rat."
+        class Plaguedoctor
+    }
+
+    tags [summon]
+    
+    graphics {
+        lob true
+        animation shoot
+    }
+    
+    cost {
+        infcantrip true
+        mana 5
+    }
+    
+    target {
+        min_range 1
+        max_range 1
+    }
+
+    spawn {
+        object CharmedRat
+    }
+}
+
+SpawnRatPlaguedoctor2 {
+    variant_of SpawnRatPlaguedoctor
+
+    meta {
+        desc "Summon a Rat that instantly attacks if it can."
+    }
+    spawn {
+        additional_passives {
+            ForceAttack 1
+        }
+    }
+}
+
+Myasis {
+    template spell
+	
+    graphics {
+        particle PoisonPoof
+		animation evilMagic
+    }
+
+    
+    meta {
+        name "Myasis"
+        desc "Destroy a body and spawn a Myasis. This can also mutate certain units."
+        class Plaguedoctor
+        type_icon "spawn"
+    }
+
+    tags [summon]
+
+    cost {
+        infcantrip true
+        mana 5
+    }
+
+    target {
+        max_aoe 0
+        min_range 1
+        max_range 3
+    }
+
+    damage_instance {
+        damage 0
+
+        effects {
+            Conditional_DestructibleCorpse {
+                VaporizeCorpse 1
+                    ObjectOnHitCharacter CharmedCarcus
+            }
+        }
+
+        elements [
+            Mutate
+        ]
+    }
+}
+
+Myasis2 {
+    variant_of Myasis
+    meta {
+        desc "Destroy bodies in a area and spawn Myasis. This can also mutate certain units."
+    }
+
+    target {
+        max_aoe 2
+    }
+}
+
+TheChills {
+    template targeted_status
+    
+    meta {
+        name "The Chills"
+        desc "Freeze a unit. If that unit is already frozen, inflict Poison 2 and Slow 2. "
+        class Plaguedoctor
+    }
+
+    graphics {
+        particle PoisonPoof
+		animation evilMagic
+    }
+    
+    cost {
+        infcantrip true
+        mana 6
+    }
+
+    target {
+        max_aoe 0
+        min_range 1
+        max_range 3
+    }
+
+    temporary_effects {
+        FreezePiercing 1
+    }
+    
+    damage_instance {
+        damage 0
+        effects {
+            Freeze 1
+            Conditional_HasStatus {
+                status Freeze
+                Poison 2
+                Slow 2
+            }
+        }
+
+        elements [
+            Ice
+        ]
+    }
+}
+
+TheChills2 {
+    variant_of TheChills
+    meta {
+        desc "Freeze a unit. If that unit is already frozen, inflict Poison 3 and Slow 3."
+    }
+
+
+    damage_instance {
+        damage 0
+        effects {
+            Conditional_HasStatus {
+                status Freeze
+                Poison 3
+                Slow 3
+            }
+        }
+    }
+}
+
+Transmit {
+    template melee_attack
+
+    meta {
+        name "Transmit"
+        desc "Touch another unit to cleanse 1 stack of a random debuff and inflict 1-2 random debuffs."
+        class Plaguedoctor
+    }
+
+    graphics {
+    }
+
+    cost {
+        infcantrip true
+        mana 3
+    }
+
+    
+    damage_instance {
+        damage 0
+
+        effects {
+            RandomStatusFromPool {
+                Poison 1
+                Burn 1
+                Bleed 1
+                Weakness 1
+                Slow 1
+                Rot 1
+            }
+            Poison [1 .1]
+            Burn [1 .1]
+            Bleed [1 .1]
+            Weakness [1 .1]
+            Slow [1 .1]
+            Rot [1 .1]
+
+            ApplyToSource {
+                PartialCleanse 1
+            }
+        }
+    }
+}
+
+Transmit2 {
+    variant_of Transmit
+
+    meta {
+        desc "Touch another unit to cleanse 2 stacks of a random debuff and inflict 2-4 random debuffs."
+    }
+
+    damage_instance {
+
+        effects {
+            
+            RandomStatusFromPool {
+                Poison 2
+                Burn 2
+                Bleed 2
+                Weakness 2
+                Slow 2
+                Rot 2
+            }
+            Poison [1 .1]
+            Burn [1 .1]
+            Bleed [1 .1]
+            Weakness [1 .1]
+            Slow [1 .1]
+            Rot [1 .1]
+            Poison [1 .1]
+            Burn [1 .1]
+            Bleed [1 .1]
+            Weakness [1 .1]
+            Slow [1 .1]
+            Rot [1 .1]
+
+            ApplyToSource {
+                PartialCleanse 2
+            } 
+        }
+    }
+}
+
+Miasma {
+    template spell
+
+    meta {
+        name "Miasma"
+        desc "Deal 1 damage and inflict Poison 1 to units adjacent to a corpse. This spell is stronger and castable while you're downed. "
+        class Plaguedoctor
+    }
+
+    graphics {
+        particle PoisonPoof
+		animation evilMagic
+    }
+
+    cost {
+        mana 4
+        infcantrip true
+    }
+
+    bonus_passives {
+        DeadAltAbility Miasma_Afterlife
+    }
+    
+    target {
+        max_range 20
+        max_aoe 1
+        restrictions must_have_destructible_corpse
+    }
+
+    damage_instance {
+        type none
+        damage 1
+
+        effects {
+            Poison 1
+            Conditional_DestructibleCorpse {
+                IgnoreDamage 1
+            }
+        }
+    }
+}
+
+Miasma_Afterlife {
+    template spell
+
+    meta {
+        name "Miasma"
+        desc "Deal 5 damage and inflict Poison 1 to units adjacent to a corpse. This spell is stronger and castable while you're downed."
+        class Plaguedoctor
+    }
+
+    graphics {
+        animation none
+        particle PoisonPoof
+    }
+
+    cost {
+        cantrip true
+        mana 0
+        can_cast_while_dead true
+    }
+
+    bonus_passives {
+        DeadAltAbility Miasma_Afterlife
+    }
+    
+    target {
+        max_range 20
+        max_aoe 1
+        restrictions must_have_destructible_corpse
+    }
+
+    damage_instance {
+        type none
+        damage 5
+
+        effects {
+            Poison 1
+            Conditional_DestructibleCorpse {
+                IgnoreDamage 1
+            }
+        }
+    }
+}
+
+Miasma2 {
+    variant_of Miasma
+
+    meta {
+        desc "Deal 2 damage and inflict Poison 2 to units in an area around corpse. This spell is stronger and castable while you're downed. "
+    }
+
+    bonus_passives {
+        DeadAltAbility Miasma2_Afterlife
+    }
+    
+    target {
+        max_aoe 2
+    }
+
+    damage_instance {
+        type none
+        damage 2
+
+        effects {
+            Poison 2
+        }
+    }
+}
+
+Miasma_Afterlife2 {
+    variant_of Miasma
+
+    meta {
+        desc "Deal 7 damage and inflict Poison 2 to units in an area around corpse. This spell is stronger and castable while you're downed. "
+    }
+    
+    target {
+        max_aoe 2
+    }
+
+    damage_instance {
+        type none
+        damage 8
+
+        effects {
+            Poison 2
+        }
+    }
+}
+
+Menticide {
+    template targeted_status
+    
+    meta {
+        name "Menticide"
+        desc "Inflict Possession 1 to an enemy."
+        class Plaguedoctor
+    }
+
+    graphics {
+        particle PoisonPoof
+		animation evilMagic
+    }
+
+    cost {
+        infcantrip true
+        mana 8
+    }
+
+    target {
+        min_range 1
+        max_range 3
+#       restrictions [must_have_living_character must_have_enemy]
+    }
+
+    damage_instance {
+        effects {
+            Possessed 1
+        }
+
+        elements [ // 
+            Grass
+        ]
+    }
+}
+
+Menticide2 {
+    variant_of Menticide
+
+    meta {
+        desc "Inflict Possession 2 to an enemy."
+    }
+
+    damage_instance {
+        effects {
+            Possessed 2
+        }
+    }
+}
+
+
+PlagueOfRats {
+    template spell
+    
+    meta {
+        name "Plague of Rats"
+        desc "Surround a unit with Lil' Rats"
+        class Plaguedoctor
+    }
+
+    graphics {
+        particle PoisonPoof
+		animation floatingmagic
+    }
+
+    cost {
+        infcantrip true
+        mana 15
+    }
+
+    target {
+        min_range 1
+        max_range 5+bonus_range
+        max_aoe 0
+
+        restrictions [must_have_animate_character]
+    }
+
+    damage_instance {
+        damage 0
+
+        effects {
+            Imprison CharmedRat
+        }
+    }
+}
+
+PlagueOfRats2 {
+    variant_of PlagueOfRats
+    
+    meta {
+
+        desc "Surround a unit with Lil' Rats. This spell costs less."
+    }
+
+    cost {
+        infcantrip true
+        mana 10
+    }
+}
+
+Swampwalk {
+    template move
+    
+    meta {
+        name "Swampwalk"
+        desc "Move up to 4 tiles, leaving Creep tiles as you go. "
+        animate_name true
+        class Plaguedoctor
+    }
+
+    cost {
+        infcantrip true
+        mana 5
+    }
+
+    target {
+        max_range 4
+    }
+
+    temporary_effects {
+        TileTrail CreepTile
+    }
+}
+
+Swampwalk2 {
+    variant_of Swampwalk
+    
+    meta {
+        desc "Move up to 10 tiles, leaving Creep tiles as you go. "
+    }
+
+    target {
+        max_range 10
+    }
+}
+
+SwampThingDoT { //for SwampThing
+    template spell
+    
+    meta {
+        name "SwampThingDoT"
+    }
+
+    graphics {
+		animate_name false
+        animation none
+		particle none
+    }
+
+
+    target {
+        target_mode none
+        aoe_mode all
+        
+        aoe_restrictions [enemies_only character_must_be_affected_by_tile_with_element]
+        aoe_tile_requires_element Water
+    }
+
+    damage_instance {
+        damage 0
+        effects {
+            Poison 1
+        }
+    }
+}
+
+SwampThingDoT2 { //for SwampThing
+    variant_of SwampThingDoT
+    
+    meta {
+        name "SwampThingDoT2"
+    }
+
+    damage_instance {
+        damage 0
+        effects {
+            TriggerDOTStatuses 0
+        }
+    }
+}
+
+DirtyNeedles { 
+    template spell
+
+    meta {
+        name "Dirty Needles"
+        desc "Inflict Poison 1 to yourself or a unit to give Poison Lace 1."
+        class Plaguedoctor
+    }
+
+    graphics {
+		animation pointout
+    }
+    
+    cost {
+        mana 4
+        infcantrip true
+    }
+
+    target {
+        max_aoe 0
+        max_range 1
+        min_range 0
+    }
+
+    damage_instance {
+        effects {
+            PoisonLace 1
+            Poison 1
+        }
+    }
+}
+
+DirtyNeedles2 { 
+    variant_of DirtyNeedles
+
+    meta {
+        name "Dirty Needles"
+        desc "Inflict Poison 1 to yourself or a unit to give Poison Lace 1 and +1 Damage."
+        class Plaguedoctor
+    }
+
+    damage_instance {
+        effects {
+            DamageUp 1
+        }
+    }
+}
+
+CadaverCart {
+    template move
+    
+    meta {
+        name "Cadaver Cart"
+        desc "Trample 3 tiles while unearthing bodies."
+        class Plaguedoctor
+        animate_name true
+    }
+    
+    cost {
+        mana 6
+        infcantrip true
+    }
+    
+    target {
+        max_range 3
+        restrictions [must_move must_not_be_knockback_immune_animate_character]
+    }
+
+    temporary_effects {
+        Trample 2
+        ObjectDetector {
+            object chapter_corpse_medium
+            chance 100%
+        }
+    }
+    
+    damage_instance {
+        damage 3
+        override_trample_damage true
+    }
+}
+
+
+CadaverCart2 {
+    variant_of CadaverCart
+
+    meta {
+        desc "Trample 6 tiles while unearthing bodies."
+    }
+
+    
+    target {
+        max_range 3
+    }
+}
+
+SludgeBomb {
+    template spell
+
+    meta {
+        name "Sludge Bomb"
+        desc "An explosive sludge projectile that inflicts Poison 1 and creates Creep in a area."
+        class Plaguedoctor
+    }
+
+    graphics {
+        center_particle PoisonPoof
+        area_particle Explosion
+        use_projectile true
+        projectile Creepball
+        lob_height 1
+        speed 20
+        delay 5
+        animation castspell
+    }
+    
+    cost {
+        infcantrip true
+        mana 7
+    }
+    
+    target {
+        max_aoe 1
+        max_range 4
+    }
+    
+    damage_instance {
+        damage 4
+        
+        effects {
+            Poison 1
+            ChangeTile CreepTile
+        }
+        
+        elements [
+            Explosion
+        ]
+    }
+}
+
+SludgeBomb2 {
+    variant_of SludgeBomb
+
+    meta {
+        desc "A more damaging explosive sludge projectile that inflicts Poison 2 and creates Creep in a area."
+    }
+
+    damage_instance {
+        damage 7
+        
+        effects {
+            Poison 2
+        }
+    }
+}
+
+AcidSpray {
+    template spell
+
+    meta {
+        name "Acid Spray"
+        desc "An acid projectile that inflicts Magic Weakness 2."
+        class Plaguedoctor
+    }
+
+    graphics {
+        use_projectile true
+        projectile Creepball
+        particle PoisonPoof
+        animation shoot
+    }
+    
+    cost {
+        infcantrip true
+        mana 6
+    }
+    
+    target {
+        max_aoe 0
+        max_range 4
+    }
+    
+    damage_instance {
+        damage 2
+        
+        effects {
+            MagicWeakness 2
+        }
+    }
+}
+
+AcidSpray2 {
+    variant_of AcidSpray
+
+    meta {
+        desc "An acid projectile that inflicts Magic Weakness 2 and Poison 2."
+    }
+    
+    damage_instance {
+        
+        effects {
+            Poison 2
+        }
+    }
+}
+
+Pandemic {
+    template spell
+
+    meta {
+        name "Pandemic"
+        desc "Inflict Poison 1 to all units."
+        class Plaguedoctor
+    }
+
+    graphics {
+        particle PoisonPoof
+		animation evilMagic
+    }
+    
+    cost {
+        mana 4
+        infcantrip true
+    }
+
+    
+    target {
+        target_mode none
+        aoe_mode all
+        aoe_considers_character_size false
+        knockback_mode zero
+    }
+
+    damage_instance {
+        effects {
+            Poison 1
+        }
+    }
+}
+Pandemic2 {
+    variant_of Pandemic
+
+    meta {
+        desc "Inflict Poison 1 to all units. This spell costs less."
+    }
+
+    cost {
+        mana 3
+    }
+}
+
+AutoRabies { //for Rabid
+    template self_buff
+    
+    meta {
+        name "AutoRabies"
+    }
+
+    graphics {
+		animate_name false
+        animation none
+		particle none
+    }
+
+    damage_instance {
+        damage 0 
+        
+        effects {
+            GainDisorder Rabies
+        }
+    }
+}
+
+SummonPlagueRat{
+    template spawn
+
+    meta {
+        name "Resummon Plague Rat "
+        desc "Summon a new Plague Rat. Castable only if your Plague Rat is dead."
+        class Plaguedoctor
+    }
+
+    tags [summon]
+    
+    graphics {
+        lob true
+        animation throwobject
+    }
+    
+    cost {
+        infcantrip true
+        mana 11
+    }
+
+    bonus_passives {
+        AbilityDisableIfLivingCrow 1
+    }
+    
+    target {
+        min_range 1
+        max_range 1
+        max_aoe 0
+
+        range_excludes_blocking false
+        restrictions aoe_must_exist
+    }
+
+    spawn {
+        object CharmedPlagueRat
+    }
+}
+
+SummonPlagueRat2 {
+    template spawn
+
+    meta {
+        name "Resummmon Plague Rat+"
+        desc "Summon a Plague Rat."
+        class Plaguedoctor
+    }
+
+    tags [summon]
+    
+    graphics {
+        lob true
+        animation shoot
+    }
+    
+    cost {
+        infcantrip true
+        mana 11
+    }
+
+    target {
+        min_range 1
+        max_range 1
+        max_aoe 0
+
+        range_excludes_blocking false
+        restrictions aoe_must_exist
+    }
+
+    spawn {
+        object CharmedPlagueRat
+    }
+}
+
+ForbiddenFallout {
+    template spell
+
+    meta {
+        name "Forbidden Fallout"
+        desc "Damage all enemies with a nuclear explosion that inflicts Poison 4. There will be permanent consequences for casting this spell... (Castable once per battle.) "
+        class Plaguedoctor
+    }
+
+    graphics {
+        animation floatingmagic
+        particle none
+        center_particle NukeBlastLarge
+        delay 3
+    }
+    
+    cost {
+        infcantrip true
+        mana 0
+        once_per_fight true
+    }
+    
+    target {
+        target_mode none
+        aoe_mode all
+        aoe_considers_character_size false
+        knockback_mode zero
+        aoe_restrictions exclude_allies
+    }
+
+    self_damage {
+        effects {
+            GainDisorderFromPool_PostCast diseases
+        }
+    }
+
+    damage_instance {
+        damage 7
+
+        effects {
+            Poison 4
+            ChangeTile {
+                chance 25%
+                tile ToxicTile
+            }
+        }
+
+        elements [
+            Fire
+            Mutate
+            Explosion
+        ]
+    }
+}
+
+ForbiddenFallout2 {
+    variant_of ForbiddenFallout
+
+    meta {
+        desc "Heavily damage all enemies with a nuclear explosion that inflicts Poison 7. There will be permanent consequences for casting this spell... (Castable once per battle.) "
+    }
+
+    damage_instance {
+        damage 15
+
+        effects {
+            Poison 7
+        }
+    }
+}
+
+
+MutateMinion {
+    template targeted_status
+    
+    meta {
+        name "Mutate"
+        desc "Heal and give a familiar All Stats Up. This can mutate certain units."
+        class Plaguedoctor
+    }
+
+
+    graphics {
+        particle PoisonPoof
+		animation evilMagic
+    }
+    
+    cost {
+        infcantrip true
+        mana 4
+    }
+
+    target {
+        min_range 0
+        max_range 3
+        max_aoe 0
+        restrictions aoe_must_exist
+        aoe_restrictions familiars_only
+    }
+    
+    damage_instance {
+        heal 4
+
+
+        effects {
+            AllStatsUp 1
+        }
+
+        elements [
+            Mutate
+        ]
+    }
+}
+
+MutateMinion2 {
+    variant_of MutateMinion
+    
+    meta {
+        desc "Heal and give a familiar All Stats Up and Poisonous 1. This can mutate certain units."
+    }
+
+    damage_instance {
+        heal 4
+
+        effects {
+            AllStatsUp 1
+            PoisonThorns 1
+        }
+    }
+}
+
+Repurpose {
+    template melee_attack
+    
+    meta {
+        name "Repurpose"
+        desc "Destroy an adjacent body. The next familiar you spawn becomes a Champion."
+        class Plaguedoctor
+        type_icon "misc"
+    }
+
+    graphics {
+    }
+
+    cost {
+        infcantrip true
+        mana 0
+    }
+
+    target {
+        aoe_restrictions must_have_destructible_corpse
+        restrictions aoe_must_exist
+    }
+
+    damage_instance {
+        damage 0
+        type melee
+        incidentally_collects_pickups false
+
+        effects {
+            VaporizeCorpse 1
+            ApplyToSource {
+                ChampionUpgradeNextMinion 1
+            }
+        }
+    }
+}
+
+Repurpose2 {
+    variant_of Repurpose
+    
+    meta {
+        desc "Destroy an adjacent body. The next familiar you spawn becomes an Elite Champion."
+    }
+
+    damage_instance {
+        effects {
+            ApplyToSource {
+                EliteUpgradeNextMinion 1
+            }
+        }
+    }
+}
+
+BadBreath {
+    template spell
+
+    meta {
+        name "Bad Breath"
+        desc "Blow at units in a cone to inflict Poison 2, Slow 2 and Weakness 2."
+        class Plaguedoctor
+    }
+
+    graphics {
+		animation blowFire
+        particle PoisonPoof
+        delay 10
+    }
+    
+    cost {
+        infcantrip true
+        mana 6
+    }
+    
+    target {
+        target_mode direction
+
+        aoe_mode cone
+        min_aoe 1
+        max_aoe 2
+
+        aoe_considers_character_size true
+        aoe_excludes_self true
+    }
+    
+    damage_instance {
+        damage 0
+
+        effects {
+            Poison 2
+            Slow 2
+            Weakness 2
+        }
+
+        elements [
+            Wind
+        ]
+    }
+}
+
+BadBreath2 {
+    variant_of BadBreath
+    
+    meta {
+        desc "Blow at units in a larger cone and inflict Poison 3, Slow 3 and Weakness 3."
+    }
+
+    target {
+        max_aoe 4
+    }
+
+    damage_instance {
+        effects {
+            Poison 3
+            Slow 3
+            Weakness 3
+        }
+    }
+}
+
+Smog {
+    template spawn
+
+    meta {
+        name "Smog"
+        desc "Blow a line of poisonous gas clouds three tiles forward."
+        class Plaguedoctor
+    }
+
+    graphics {
+		animation blowFire
+        particle PoisonPoof
+        delay 10
+    }
+    
+    cost {
+        infcantrip true
+        mana 4
+    }
+    
+    target {
+        target_mode direction
+        
+        aoe_mode line
+        min_aoe 1
+        max_aoe 3+bonus_range
+
+        aoe_considers_character_size true
+        aoe_excludes_self true
+    }
+    
+    spawn {
+        object GasCloud
+        layer gas
+    }
+
+    damage_instance {
+        damage 0
+
+        elements [
+            Wind
+        ]
+    }
+}
+
+Smog2 {
+    variant_of Smog
+
+    meta {
+        desc "Blow a cone of poisonous gas clouds three tiles forward."
+    }
+
+    target {
+        target_mode direction
+
+        aoe_mode cone
+        min_aoe 1
+        max_aoe 3+bonus_range
+
+        aoe_considers_character_size true
+        aoe_excludes_self true
+    }
+}
+
+PinkyShot {
+    template lobbed_attack
+    
+    meta {
+        name "Pinky Shot"
+        desc "Shoot a Pinky at a unit."
+        type_icon "spawn"
+        class Plaguedoctor
+    }
+
+    tags [summon]
+
+    graphics {
+        animation poopfart
+        projectile Pinky
+    }
+
+    cost {
+        mana 5
+        infcantrip true
+    }
+
+    target {
+        min_range 1
+        max_range 5+bonus_range
+    }
+
+    damage_instance {
+        damage 2
+
+        effects {
+            BounceObject CharmedPinky
+        }
+    }
+}
+
+PinkyShot2 {
+    variant_of PinkyShot
+    
+    meta {
+        desc "Shoot a Champion Pinky at a unit."
+    }
+
+    damage_instance {
+        damage 4
+
+        effects {
+            BounceObject CharmedPinky_Champion
+        }
+    }
+}
+
+ZombificationSpores {
+    template targeted_status
+    
+    meta {
+        name "Zombification Spores"
+        desc "Resurrect a body as a zombie. It takes an AI-controlled extra turn, but has Doom 1."
+        class Plaguedoctor
+        type_icon "misc"
+    }
+
+    graphics {
+        animation floatingmagic
+        affected_particle PoisonPoof
+    }
+
+    cost {
+        infcantrip true
+        mana 6
+    }
+
+    target {
+        min_range 1
+        max_range 4
+        max_aoe 0
+        aoe_restrictions must_have_corpse
+        restrictions aoe_must_exist
+    }
+
+    damage_instance {
+        effects {
+            Reanimate 100%
+            Possessed 1
+            SafeDoomed 1
+        }
+    }
+}
+ZombificationSpores2 {
+    variant_of ZombificationSpores
+    meta {
+        desc "Resurrect a body as a zombie. It takes an AI-controlled extra turn and has All Stats Up +2, but has Doom 1."
+    }
+
+    damage_instance {
+        effects {
+            AllStatsUp 2
+        }
+    }
+}
+
+StrangeMedicine {
+    template spawn
+
+    meta {
+        name "Strange Medicine"
+        desc "Spawn a antidote pickup on an empty tile in range."
+        class Plaguedoctor
+        type_icon "misc"
+    }
+    
+    graphics {
+        lob true
+        animation throwobject
+    }
+    
+    cost {
+        infcantrip true
+        mana 4
+    }
+    
+    target {
+        min_range 1
+        max_range 4
+        restrictions [must_be_empty aoe_must_exist]
+    }
+
+    spawn {
+        object Antidote
+        layer pickups
+    }
+}
+
+StrangeMedicine2 {
+    variant_of StrangeMedicine
+
+    meta {
+        desc "Spawn a antidote pickup on any empty tile. (This costs less.)"
+    }
+
+    cost {
+        mana 3
+    }
+    
+    target {
+        max_range 20
+    }
+}
+
+
+ParasiticBite {
+    template melee_attack
+    
+    meta {
+        name "Parasitic Bite"
+        desc "A melee attack on a unit that equips a random temporary parasite to an empty armor slot. If you are poisoned, this always crits."
+        class Plaguedoctor
+    }
+
+    graphics {
+		animation biteattack
+    }
+    
+    cost {
+        infcantrip true
+        mana 5
+    }
+
+    target {
+        restrictions must_have_living_character
+    }
+    
+    damage_instance {
+        damage 5+bonus_melee_ability_damage
+        can_collect_pickups true
+
+        effects {
+            Conditional_SourceHasStatus {
+                status Poison
+                BonusCritChance 100
+            }
+        }
+    }
+}
+
+ParasiticBite2 {
+    variant_of ParasiticBite
+
+    meta {
+        desc "A stronger melee attack on a unit with Lifesteal that equips a random temporary parasite to an empty armor slot. If you are poisoned, this always crits."
+    }
+
+    damage_instance {
+        damage 8+bonus_melee_ability_damage
+        effects {
+            Leech 1
+        }
+    }
+}
+
+GammaBurst {
+    template spell
+    
+    meta {
+        name "Gamma Burst"
+        desc "Radiate energy to damage units around you and push them back 3 tiles. If you are poisoned, this also inflicts Burn 2. Can mutate certain units."
+        class Plaguedoctor
+    }
+
+    graphics {
+        animation radiant
+        dont_orient true
+		particle fx_magicSplash
+    }
+
+    cost {
+        infcantrip true
+        mana 5
+    }
+
+    target {
+        target_mode none
+        min_aoe 1
+        max_aoe 2
+        prioritize_dont_change_direction true
+    }
+
+    damage_instance {
+        damage 3
+        knockback 3
+
+        effects {
+            Conditional_SourceHasStatus {
+                status Poison
+                Burn 2
+            }
+        }
+
+        elements [
+            Mutate
+            Explosion
+        ]
+    }
+}
+
+GammaBurst2 {
+    variant_of GammaBurst
+    
+    meta {
+        desc "Radiate energy to damage units in larger area around you and push them back 10 tiles. If you are poisoned, this also inflicts Burn 3. Can mutate certain units."
+    }
+
+    target {
+        target_mode none
+        min_aoe 1
+        max_aoe 3
+        prioritize_dont_change_direction true
+    }
+
+    damage_instance {
+        damage 5
+        knockback 10
+
+        effects {
+            Conditional_SourceHasStatus {
+                status Poison
+                Burn 3
+            }
+        }
+    }
+
+
+}
+
+MiracleOperation {
+    template spell
+    
+    meta {
+        name "Miracle Operation"
+        desc "A healing spell on an adjacent unit that heals more the less health the target unit has."
+        class Plaguedoctor
+        type_icon "heal"
+        icon_shell_frame attack
+        icon_damage_display "0-20"  // fuck the healing icon
+    }
+
+    graphics {
+        animation floatingmagic
+        affected_particle HealMed
+    }
+    
+    cost {
+        infcantrip true
+        mana 8
+    }
+    
+    target {
+        max_aoe 0
+        max_range 1
+        min_range 1
+    }
+
+    damage_instance {
+        heal 0
+        show_damage_on_0 true
+        type spell
+
+        effects {
+            DamageBasedOnMissingHealth -20
+        }
+    }
+}
+
+MiracleOperation2 {
+    variant_of MiracleOperation
+
+    meta {
+        desc "A healing spell on an adjacent unit that heals even more the less health the target unit has and removes debuffs."
+        icon_damage_display "0-30"
+    }
+    
+    damage_instance {
+        heal 0
+        show_damage_on_0 true
+        type spell
+
+        effects {
+            DamageBasedOnMissingHealth -30
+            Cleanse 0
+        }
+
+        elements [
+            Holy
+        ]
+    }
+}
+
+AcidArmor {
+    template self_buff
+    
+    meta {
+        name "Acid Armor"
+        desc "Gain +2 Temporary Brace and Poisonous 1 until your next turn."
+        class Plaguedoctor
+        type_icon "misc"
+    }
+
+    graphics {
+        animation liquidmetaldodge
+    }
+    
+    cost {
+        infcantrip true
+        mana 4
+    }
+
+    damage_instance {
+        effects {
+            Temporary {
+                status Brace 
+                stacks 2
+                turns 1
+                expires_on_begin_turn true
+            }
+            Temporary {
+                status PoisonThorns
+                stacks 1
+                turns 1
+                expires_on_begin_turn true
+            }
+        }
+    }
+}
+
+AcidArmor2 {
+    variant_of AcidArmor
+
+    meta {
+        desc "Gain +2 Temporary Brace, Poisonous 2 and Thorns 3 until your next turn."
+    }
+
+    damage_instance {
+        effects {
+            Temporary {
+                status Brace 
+                stacks 2
+                turns 1
+                expires_on_begin_turn true
+            }
+            Temporary {
+                status PoisonThorns
+                stacks 2
+                turns 1
+                expires_on_begin_turn true
+            }
+            Temporary {
+                status Thorns
+                stacks 3
+                turns 1
+                expires_on_begin_turn true
+            }
+        }
+    }
+}
+
+ToxicBarbs {
+    template lobbed_attack
+    
+    meta {
+        name "Toxic Barbs"
+        desc "Give a unit +3 Poisonous until your next turn. (You can target yourself.)"
+        class Plaguedoctor
+        type_icon "buff"
+    }
+
+    graphics {
+        projectile Creepball
+    }
+
+    cost {
+        mana 3
+        infcantrip true
+    }
+
+    target {
+        min_range 0
+        max_range 5
+        max_aoe 0
+    }
+
+    damage_instance {
+        damage 0
+
+        effects {
+            Temporary {
+                status PoisonThorns
+                stacks 3
+                turns 1
+                expires_on_appliers_turn true
+            }
+        }
+    }
+}
+
+ToxicBarbs2 {
+    template spell
+    
+    meta {
+        name "Toxic Barbs"
+        desc "Give a unit or object anywhere +3 Poisonous until your next turn. (You can target yourself.)"
+        class Plaguedoctor
+        type_icon "buff"
+    }
+
+    graphics {
+        projectile Creepball
+    }
+
+    cost {
+        mana 3
+        infcantrip true
+    }
+
+    target {
+        min_range 0
+        max_range 20
+        max_aoe 0
+    }
+
+    damage_instance {
+        damage 0
+
+        effects {
+            CanApplyToInanimate {
+                Temporary {
+                    status PoisonThorns
+                    stacks 3
+                    turns 1
+                    expires_on_appliers_turn true
+                }
+            }
+        }
+    }
+}
+
+GastroAcid {
+    template lobbed_attack
+    
+    meta {
+        name "Gastro Acid"
+        desc "Purge a unit within 4 tiles of it's buffs."
+        class Plaguedoctor
+        type_icon "buff"
+    }
+
+    graphics {
+        projectile Creepball
+    }
+
+    cost {
+        mana 8
+        infcantrip true
+    }
+
+    target {
+        min_range 0
+        max_range 4
+        max_aoe 0
+    }
+
+    damage_instance {
+        damage 0
+
+        effects {
+            Purge 0
+        }
+    }
+}
+
+GastroAcid2 {
+    variant_of GastroAcid
+
+    meta {
+        desc "Purge a unit anywhere of it's buffs. (This costs less.)"
+    }
+
+    cost {
+        mana 6
+    }
+
+    target {
+        min_range 0
+        max_range 20
+        max_aoe 0
+    }
+}
+
+Hookworm {
+    template straightshot_attack
+    
+    meta {
+        name "Hookworm"
+        desc "Shoot a hook forward and hook a unit or object, then pull yourself to them."
+        class Plaguedoctor
+        type_icon "movement"
+    }
+
+    graphics {
+        animation poopfart
+        projectile HookProjectile
+
+        chain_movieclip ChainLink
+        chain_distance .25
+    }
+
+    cost {
+        infcantrip true
+        mana 5
+    }
+
+    target {
+        max_aoe 10
+        target_mode direction8
+    }
+
+    damage_instance {
+        damage 0
+        effects {
+            CanApplyToInanimate {
+                PullSourceToTarget 1
+            }
+        }
+    }
+}
+
+Hookworm2 {
+    variant_of Hookworm
+
+    meta {
+        desc "Shoot a hook forward and hook a unit or object to deal damage and inflict Leech 1, then pull yourself to them."
+    }
+
+    damage_instance {
+        damage 5+bonus_ranged_ability_damage
+        effects {
+            Leeches 1
+        }
+    }
+}
+
+ImmunodeficiencyDoT {
+    template spell
+    
+    meta {
+        name "ImmunodeficiencyDoT"
+    }
+
+    graphics {
+		animate_name false
+        animation none
+		particle none
+    }
+
+
+    target {
+        target_mode none
+        aoe_mode all
+        
+        aoe_restrictions enemies_only
+    }
+
+    damage_instance {
+        damage 0
+        effects {
+            ConstitutionUp -1
+        }
+    }
+}
+
+RatShot {
+    template lobbed_attack
+    
+    meta {
+        name "Rat Shot"
+        desc "Shoot a Rat at a unit."
+        type_icon "spawn"
+        class Plaguedoctor
+    }
+
+    tags [summon]
+
+    graphics {
+        animation poopfart
+        projectile Rat
+    }
+
+    cost {
+        mana 8
+        infcantrip true
+    }
+
+    target {
+        min_range 1
+        max_range 5+bonus_range
+    }
+
+    damage_instance {
+        damage 2
+
+        effects {
+            BounceObject CharmedRat
+        }
+    }
+}
+
+RatShot2 {
+    variant_of RatShot
+    
+    meta {
+        desc "Shoot a Leaper at a unit."
+    }
+
+    tags [summon]
+
+    graphics {
+        animation poopfart
+        projectile FatRat
+    }
+
+    cost {
+        mana 8
+        infcantrip true
+    }
+
+    target {
+        min_range 1
+        max_range 5+bonus_range
+    }
+
+    damage_instance {
+        damage 4
+
+        effects {
+            BounceObject CharmedLeaper
+        }
+    }
+}
+
+RallyRats {
+    template targeted_status
+    
+    meta {
+        name "Rally Rats"
+        desc "Makes rats in an area take an extra turn. This spell can't be cast during extra turns."
+        class Plaguedoctor
+        type_icon "misc"
+    }
+
+    graphics {
+        animation pointout
+    }
+    
+    cost {
+        infcantrip true
+        mana 9
+        main_turn_only true
+    }
+
+    target {
+        min_range 0
+        max_range 4
+        max_aoe 2
+    }
+    
+    damage_instance {
+        damage 0
+
+        effects {
+            Conditional_HasTag {
+                tag rat
+                TakeExtraTurn 1
+            }
+        }
+    }
+}
+
+RallyRats2 {
+    variant_of RallyRats
+    
+    meta {
+        name "Rally Rats"
+        desc "Makes rats in an area take an extra turn. This spell can't be cast during extra turns."
+    }
+    
+    cost {
+        infcantrip true
+        mana 6
+        main_turn_only true
+    }
+}
+
+PlagueBurst {
+    template spell
+    
+    meta {
+        name "Plague Burst"
+        desc "Make a unit with 3 Health or less explode, damaging and inflicting Poison 2 to adjacent units."
+        class Plaguedoctor
+    }
+
+    graphics {
+        animation evilMagic
+	    particle Explosion
+    }
+    
+    cost {
+        infcantrip true
+        mana 5
+    }
+
+    target {
+        min_range 0
+        max_range 20
+
+        max_aoe 0
+        target_mode tile
+
+        restrictions [must_have_animate_character must_have_living_character]
+        aoe_restrictions must_have_low_health_character
+        low_health_character_threshold 3
+    }
+    
+    damage_instance {
+        damage 0
+        cant_miss true
+        effects {
+            ExplodeCharacter_DeathBloom 5
+            Poison 2
+        }
+    }
+}
+
+PlagueBurst2 {
+    variant_of PlagueBurst
+    
+    meta {
+        desc "Make a unit with 5 Health or less explode, damaging and inflicting Poison 2 to units in an area."
+    }
+    
+    cost {
+        infcantrip true
+        mana 5
+    }
+
+    target {
+        min_range 0
+        max_range 20
+
+        max_aoe 0
+        target_mode tile
+
+        restrictions [must_have_animate_character must_have_living_character]
+        aoe_restrictions must_have_low_health_character
+        low_health_character_threshold 5
+    }
+    
+    damage_instance {
+        damage 0
+        cant_miss true
+        effects {
+            ExplodeCharacter_DeathBloom2 5
+            Poison 2
+        }
+    }
+}
+
+ControlSludge {
+    template spell
+    chain_ability ControlSludgePartTwo
+    
+    meta {
+        name "Control Sludge"
+        desc "Create a Creep tile, then all enemies on water element tiles take 1 damage."
+        class Plaguedoctor
+        type_icon "misc"
+    }
+	
+	graphics {
+        particle PoisonPoof
+    }
+
+    cost {
+        infcantrip true
+        mana 4
+    }
+
+    target {
+        min_range 1
+        max_range 4
+        max_aoe 0
+    }
+    
+    damage_instance {
+        damage 1
+        type spell
+
+        effects {
+            ChangeTile CreepTile
+            OverrideDamage 0
+        }
+
+        elements [
+            Water
+        ]
+    }
+}
+ControlSludge2 {
+    variant_of ControlSludge
+    chain_ability ControlSludgePartTwo2
+    
+    meta {
+        desc "Create a Creep tile, then all enemies on water element tiles take 1 damage and gain Slow 1"
+    }
+
+    target {
+        max_range 6
+    }
+}
+ControlSludgePartTwo {
+    template spell
+
+    graphics {
+        animation none
+		particle PoisonPoof
+    }
+
+    target {
+        target_mode none
+        aoe_mode all
+        
+        aoe_restrictions [enemies_only character_must_be_affected_by_tile_with_element]
+        aoe_tile_requires_element Water
+    }
+
+    damage_instance {
+        damage 1
+    }
+}
+
+ControlSludgePartTwo2 {
+    variant_of ControlSludgePartTwo
+
+    damage_instance {
+        damage 1
+
+        effects {
+            Slow 1
+        }
+    }
+}
+
+CraftDrugs {
+    template self_buff
+    
+    meta {
+        name "Craft Drugs"
+        desc "Craft a random pill into your empty trinket slot. You can use consumables on allies. (Castable once per battle.)"
+        class Plaguedoctor
+    }
+
+    graphics {
+		animation tinker
+    }
+    
+    cost {
+        mana 4
+        cantrip true
+        requires_empty_trinket true
+        once_per_fight true
+    }
+
+    bonus_passives {
+        ConsumablesMeleeRange 1
+    }
+
+    damage_instance {
+        effects {
+            Craft {
+                pool pills
+                slot trinket
+            }
+        }
+    }
+}
+
+CraftDrugs2 {
+    variant_of CraftDrugs
+
+    meta {
+        name "Craft Drugs"
+        desc "Craft a random pill into your empty trinket slot. You can use consumables on allies. (Castable once per turn.)"
+        class Plaguedoctor
+    }
+    cost {
+        mana 4
+        cantrip true
+        requires_empty_trinket true
+    }
+}
+
+
+IpecacSpell {
+    template spell
+    
+    meta {
+        name "Ipecac"
+        desc "Expel a puke projectile that explodes, dealing damage equal to 3 times your Poison. Cleanse yourself afterwards."
+        class Plaguedoctor
+    }
+    
+    graphics {
+        animation pukeatk
+        use_projectile true
+        projectile PukeBall
+        particle Explosion
+        delay 2
+    }
+
+    cost {
+        mana 8
+        infcantrip true
+    }
+
+    target {
+        min_range 1
+        max_range 4+bonus_range
+        max_aoe 2
+        X_cant_be_zero true
+        X_is custom
+    }
+
+    bonus_passives {
+        XIsCountStatusStacks Poison
+        AbilityEnabledIfHasStatus Poison
+    }
+
+    damage_instance {
+        raw_damage 3*X
+		elements [
+            Explosion
+        ]
+    }
+
+    self_damage {
+        effects {
+            Cleanse 0
+        }
+    }
+}
+
+IpecacSpell2 {
+    variant_of IpecacSpell
+
+    meta {
+        desc "Expel a puke projectile that makes a HUGE explosion, dealing damage equal to 4 times your Poison. Cleanse yourself afterwards."
+    }
+
+    target {
+        min_range 1
+        max_range 20
+        max_aoe 4
+        X_cant_be_zero true
+        X_is custom
+    }
+
+    damage_instance {
+        raw_damage 4*X
+		elements [
+            Explosion
+        ]
+    }
+}
+
+ForbiddenFlask {
+    template self_buff
+    
+    meta {
+        name "Forbidden Flask"
+        desc "Heal yourself 20 HP and get +1 All Stats Up, but you also gain Poison 5. There will be permanent consequences for casting this spell... (Castable once per battle.)"
+        class Plaguedoctor
+    }
+
+    graphics {
+        animation gulp
+    }
+    
+    cost {
+        cantrip true
+        mana 0
+        once_per_fight true
+    }
+
+    damage_instance {
+        heal 20
+        effects {
+            AllStatsUp 1
+            Poison 5
+            GainDisorderFromPool_PostCast diseases
+        }
+    }
+}
+
+ForbiddenFlask2 {
+    variant_of ForbiddenFlask
+    
+    meta {
+        desc "Fully heal yourself and get +2 All Stats Up, but you also gain Poison 5. There will be permanent consequences for casting this spell... (Castable once per battle.)"
+    }
+
+    damage_instance {
+        effects {
+            FullHeal 1
+            AllStatsUp 2
+            Poison 5
+            GainDisorderFromPool_PostCast diseases
+        }
+    }
+}
+
+MalignantMagic { 
+    template self_buff
+
+    meta {
+        name "Malignant Magic"
+        desc "Inflict Poison 1 to yourself and gain Magic Damage equal to your Poison until end of turn."
+        class Plaguedoctor
+    }
+
+    graphics {
+		animation floatingmagic
+    }
+    
+    cost {
+        mana 3
+        infcantrip true
+    }
+
+    target {
+        X_is custom
+    }
+
+    bonus_passives {
+        XIsCountStatusStacks Poison
+    }
+
+    damage_instance {
+        effects {
+            Poison 1
+            Conditional_HasStatus {
+                status Poison
+                TempSpellDamageUp X
+            }
+        }
+    }
+}
+
+MalignantMagic2 {
+    variant_of MalignantMagic
+    
+    meta {
+        desc "Inflict Poison 1 to yourself and gain Magic Damage equal to your Poison until end of turn. (This costs less.)"
+    }
+
+    damage_instance {
+        effects {
+            FullHeal 1
+            AllStatsUp 2
+            Poison 5
+            GainDisorderFromPool_PostCast diseases
+        }
+    }
+}
+
+ToxicShock {
+    template spell
+    
+    meta {
+        name "Toxic Shock"
+        desc "A magical attack on a single unit that does additional damage equal to your Poison."
+        class Plaguedoctor
+    }
+
+    graphics {
+        particle PoisonPoof
+		animation evilMagic
+    }
+    
+    cost {
+        infcantrip true
+        mana 6
+    }
+
+    target {
+        max_aoe 0
+        min_range 1
+        max_range 5
+        X_is custom
+    }
+
+    bonus_passives {
+        XIsCountStatusStacks Poison
+    }
+
+    damage_instance {
+        damage X+3
+    }
+}
+
+ToxicShock2 {
+    variant_of ToxicShock
+    
+    meta {
+        desc "A stronger magical attack on a single unit that does additional damage equal to your Poison and inflicts Poison 1"
+    }
+
+    damage_instance {
+        damage X+5
+        Poison 1
+    }
+}
+
+WormForm {
+    template spawn
+    
+    meta {
+        name "Form of the Worm"
+        desc "Spawn maggots on each adjacent tile, then enter Worm form. Your basic attack becomes Maggot Shot and this becomes Mutate Maggots."
+        class Plaguedoctor
+        type_icon "buff"
+    }
+
+    tags [shapeshift summon]
+
+    graphics {
+        animation druidTransform
+    }
+    
+    cost {
+        infcantrip true
+        mana 10
+    }
+
+    target {
+        target_mode none
+        max_aoe 1
+    }
+
+    spawn {
+        object CharmedMaggot
+    }
+    
+    self_damage {
+        effects {
+            TransformBasicAttack WormFormMaggotShot
+            TransformAbility WormFormMutate
+            ApplyPassives {
+                AddTag worm
+            }
+
+            CatPartsSizeScaleStatus {
+                body 1.5
+            }
+
+            CatPartsTransform {
+                tail -1
+                arm1 -1
+                arm2 -1
+                leg1 -1
+                leg2 -1
+            }
+        }
+    }
+}
+
+WormForm2 {
+    variant_of WormForm
+    
+    meta {
+        desc "Spawn maggots on each adjacent tile, then enter Worm form. Your basic attack becomes Maggot Shot+ and this becomes Mutate Maggots+."
+    }
+
+    self_damage {
+        effects {
+            TransformBasicAttack WormFormMaggotShot2
+            TransformAbility WormFormMutate2
+        }
+    }
+}
+
+WormFormMaggotShot {
+    template lobbed_attack
+
+    meta {
+        name "Maggot Shot"
+        desc "Shoot a maggot at a unit."
+        class Plaguedoctor
+        animate_name false,
+    }
+
+    graphics {
+        projectile Maggot
+    }
+
+    target {
+        min_range 1
+        max_range 3
+    }
+
+    damage_instance {
+        damage 5+bonus_ranged_damage
+
+        effects {
+            ObjectOnHitEmpty CharmedMaggot
+            ObjectOnHitCharacter CharmedMaggot
+        }
+    }
+}
+
+WormFormMaggotShot2 {
+    variant_of WormFormMaggotShot
+
+    meta {
+        desc "Shoot a Champion maggot at a unit."
+    }
+
+    damage_instance {
+        effects {
+            ObjectOnHitEmpty CharmedMaggot_Champion
+            ObjectOnHitCharacter CharmedMaggot_Champion
+        }
+    }
+}
+
+WormFormMutate {
+    template targeted_status
+
+    meta {
+        name "Mutate Maggots"
+        desc "Mutate a unit. (Once per turn.)"
+        class Plaguedoctor
+    }
+
+    graphics {
+        use_projectile true
+		particle DustPoofLarge
+        animation poopfart
+    }
+
+    cost {
+        cantrip true
+        mana 3
+    }
+
+    target {
+        min_range 1
+        max_range 3
+    }
+
+    damage_instance {
+        damage 0
+        elements [
+            Mutate
+        ]
+    }
+}
+
+WormFormMutate2 {
+    variant_of WormFormMutate
+
+    meta {
+        desc "Mutate a unit. Gives worms All Stats Up. (Once per turn.)"
+    }
+  
+    damage_instance {
+        effects {
+            Conditional_HasTag {
+                tag worm
+                AllStatsUp 1
+            }
+        }
+    }
+}
+
+RatForm {
+    template self_buff
+    
+    meta {
+        name "Form of the Rat"
+        desc "Enter Rat Form, gaining +4 Charisma, +2 Speed and -2 Constitution. Your basic attack becomes Throw Bomb and this becomes Turtle."
+        class Plaguedoctor
+        type_icon "buff"
+    }
+
+    tags [shapeshift]
+
+    graphics {
+        animation druidTransform
+    }
+    
+    cost {
+        infcantrip true
+        mana 0
+    }
+    
+    damage_instance {
+        effects {
+            TransformBasicAttack RatFormThrowBomb
+            TransformAbility RatFormTurtle
+            SpeedUp 2
+            CharismaUp 4
+            ConstitutionUp -2
+
+            CatPartsTransform {
+                tail 1500
+                body 137
+                head 152
+                arm1 17
+                arm2 17
+                leg1 17
+                leg2 17
+                ear1 1500
+                ear2 1500
+            }
+        }
+    }
+}
+RatForm2 {
+    variant_of RatForm
+    
+    meta {
+        desc "Enter Rat Form, gaining +4 Charisma, +2 Speed and -2 Constitution. Your basic attack becomes Throw Bomb+ and this becomes Turtle+."
+    }
+
+    damage_instance {
+        effects {
+            TransformBasicAttack RatFormThrowBomb2
+            TransformAbility RatFormTurtle2
+        }
+    }
+}
+
+RatFormThrowBomb {
+    template spawn
+
+    meta {
+        name "Throw Bomb"
+        desc "Throw a Rat Bomb that explodes in a cross pattern at the end of the turn. Can be used twice per turn."
+        class Plaguedoctor
+    }
+    
+    graphics {
+        lob true
+        animation throwobject
+    }
+
+    bonus_passives {
+        ExtraBasicAttacks 1
+    }
+    
+    target {
+        max_range 5
+    }
+
+    spawn {
+        object Bomb
+        first_turn end_of_round
+    }
+}
+
+RatFormTurtle {
+    template self_buff
+    
+    meta {
+        name "Turtle"
+        desc "Become Invulnerable to most damage until the end of the round, then end your turn. (Can be cast once per battle.)"
+        class Plaguedoctor
+    }
+    
+    graphics {
+        animation block
+    }
+
+    cost {
+        cantrip true
+        mana 8
+        once_per_fight true
+    }
+    
+    damage_instance {
+        effects {
+            Invulnerable 1
+            EndTurn 1
+        }
+    }
+}
+
+RatFormThrowBomb2 {
+    variant_of RatFormThrowBomb
+
+    meta {
+        desc "Throw a Rat Bomb that explodes and damages everything not behind terrain at the end of the turn. Can be used twice per turn."
+        class Plaguedoctor
+    }
+    
+    spawn {
+        object SuperBomb
+        first_turn end_of_round
+    }
+}
+
+RatFormTurtle2 {
+    variant_of RatFormTurtle
+    
+    meta {
+        desc "Become Invulnerable to most damage until the end of the round, then end your turn. (Can be cast once per battle.)"
+    }
+
+    cost {
+        cantrip true
+        mana 0
+        once_per_fight true
+    }
+}
+
+PinkyBombs {
+    template spawn
+
+    meta {
+        name "Pinky Bombs"
+        desc "Throw 3 mini Rat Bombs on random tiles that explode and damage adjacent tiles at the end of the turn."
+        class Plaguedoctor
+    }
+    
+    graphics {
+        lob true
+        animation throwobject
+    }
+
+    cost {
+        infcantrip true
+        mana 8
+    }
+
+    target {
+        max_aoe 2
+
+        min_range 1
+        max_range 5+bonus_range
+
+        max_targets 3
+        restrictions none
+    }
+
+    spawn {
+        object PinkyBomb
+        first_turn end_of_round
+    }
+}
+
+PinkyBombs2 {
+    variant_of PinkyBombs
+
+    meta {
+        desc "Throw 5 mini Rat Bombs on random tiles that explode and damage adjacent tiles at the end of the turn. "
+    }
+
+    target {
+        max_aoe 3
+
+        min_range 1
+        max_range 5+bonus_range
+
+        max_targets 5
+        restrictions none
+    }
+}
+
+
+Wormhole {
+    template teleport
+    
+    meta {
+        name "Wormhole"
+        desc "Dig to any tile and unearth a Maggot."
+        animate_name true
+        class Plaguedoctor
+    }
+
+    graphics {
+        animation_out digDown
+        animation_in digUp
+    }
+
+    cost {
+        infcantrip true
+        mana 8
+    }
+
+    target {
+        max_range 20
+    }
+
+    self_damage {
+        damage 0
+
+        effects {
+            BounceObject CharmedMaggot
+        }
+    }
+}
+
+Wormhole2 {
+    variant_of Wormhole
+    
+    meta {
+        name "Wormhole"
+        desc "Dig to any tile and unearth 1-3 Maggots. (This costs less.)"
+        animate_name true
+        class Plaguedoctor
+    }
+
+    cost {
+        infcantrip true
+        mana 6
+    }
+
+    self_damage {
+        damage 0
+
+        effects {
+            BounceObject CharmedMaggot
+            BounceObject {
+                chance .5
+                obj CharmedMaggot
+            }
+            BounceObject {
+                chance .25
+                obj CharmedMaggot
+            }
+        }
+    }
+}
+
+FloralScentAoE {
+    template spell
+
+    meta {
+        name "FloralScentDoT"
+    }
+
+    graphics {
+		animate_name false
+        animation proud
+		particle HealSmall
+    }
+
+
+    target {
+        target_mode none
+        min_aoe 1
+        max_aoe 2
+        prioritize_dont_change_direction true
+
+        aoe_restrictions allies_only
+    }
+
+    damage_instance {
+        heal 2
+        effects {
+            PartialCleanse 1
+        }
+    }
+}
+
+FloralScentAoE2 {
+    variant_of FloralScentAoE
+
+    damage_instance {
+        heal 3
+        effects {
+            PartialCleanse 2
+        }
+    }
+}
+
+SweetScent {
+    template spell
+
+    meta {
+        name "Sweet Scent"
+        desc "Inflict Attraction 1 to a unit."
+        class Plaguedoctor
+    }
+
+    graphics {
+        particle fx_windSpell
+        animation blowKiss
+    }
+    
+    cost {
+        infcantrip true
+        mana 5
+    }
+
+    target {
+        max_aoe 0
+        min_range 1
+        max_range 5
+    }
+    
+    damage_instance {
+        effects {
+            Attraction 1
+        }
+
+        elements [
+            Wind
+        ]
+    }
+}
+
+SweetScent2 {
+    variant_of SweetScent
+
+    meta {
+        desc "Inflict Attraction 1 to any unit."
+    }
+
+    target {
+        max_aoe 0
+        min_range 1
+        max_range 20
+    }
+}
+
+Haze {
+    template spell
+
+    meta {
+        name "Haze"
+        desc "Create Gas Clouds in an area."
+        class Plaguedoctor
+    }
+
+    graphics {
+        particle PoisonPoof
+        animation evilMagic
+    }
+    
+    cost {
+        infcantrip true
+        mana 5
+    }
+    
+    target {
+        max_aoe 1
+        max_range 4
+    }
+    
+    damage_instance {
+        effects {
+            DustOnHit {
+                object GasCloud
+            }
+        }
+    }
+}
+
+Haze2 {
+    variant_of Haze
+
+    meta {
+        desc "Create Gas Clouds in a larger area."
+    }
+
+    target {
+        max_aoe 2
+        max_range 4
+    }
+}
+
+SoulSickness {
+    template targeted_status
+    
+    meta {
+        name "Soul Sickness"
+        desc "Inflict Magic Weakness 1 on a unit."
+        class Plaguedoctor
+    }
+
+    graphics {
+        particle PoisonPoof
+		animation evilMagic
+    }
+    
+    cost {
+        infcantrip true
+        mana 5
+    }
+
+    target {
+        max_aoe 0
+        min_range 1
+        max_range 4
+    }
+
+    damage_instance {
+        damage 0
+        effects {
+            MagicWeakness 1
+        }
+    }
+}
+
+SoulSickness2 {
+    variant_of SoulSickness
+
+    meta {
+        desc "Inflict Magic Weakness 1 on a unit and all other units of the same type."
+    }
+
+    damage_instance {
+        damage 0
+        effects {
+            MagicWeakness 1
+            ApplyToOthersWithSharedTagAndFaction {
+                MagicWeakness 1
+            }
+        }
+    }
+}

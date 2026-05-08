@@ -1,0 +1,361 @@
+PlagueRat {
+    graphics {
+        tint green // this changes the color of it obviously. I'm not sure how many tint options there is but yeah
+
+        movieclip Rat
+        name "{SpawnedBy}\'s Plague Rat"
+        projectile_spawn_offset [.5 1]
+        shadow none
+
+        tooltip "Inherits its owner's stats. Basic attack modifiers on its owner also get applied to the Rat. Immune to radiation."
+    }
+
+    stats {
+        strength 5
+        dexterity 5
+        constitution 5
+        intelligence 5
+        speed 5
+        charisma 5
+    }
+    
+    properties {
+        tag rat
+        hidden_tag crow
+        faction = allies,
+        inherit_faction = true,
+        base_movement = 5,
+        base_initiative = 0,
+        base_health = 0,
+        base_mana = 0,
+        base_mana_regen = 0,
+        base_health_regen = 0,
+        base_initial_mana = 0,
+        base_crit_chance = 0,
+        mana_matters = true,
+        weak_threshold = 5,
+        can_collect_coins = true,
+        can_eat_food = true,
+        access_to_player_inventory = true,
+        corpse_health = 1,
+    }
+
+    abilities {
+        move DefaultMove
+        attack RatMelee
+        can_get_bonus = true,
+        
+        spells [
+            RatDash
+            RatDump
+        ]
+    }
+
+    passives {
+        InheritSpawnerStats = 1,
+        CrowAttackLink = 1,
+        ElementImmune Mutate
+    }
+    
+    ai {
+      brain = PlayerBrain,
+      decision_weights = semi_simple,
+      move_weights = keep_distance_always_move,
+    }
+}
+
+PlagueRat2 = {
+    variant_of = PlagueRat,
+    abilities = {
+      spells = [
+            RatDash2,
+            RatDump2,
+        ],
+    },
+},
+
+PlagueRat3 = {
+    variant_of = PlagueRat,
+    abilities = {
+      spells = [
+            RatDash3,
+            RatDump3,
+        ],
+    },
+},
+
+PlagueRat2x2 {
+    variant_of PlagueRat
+
+    graphics {
+        scale 2.5
+    }
+    
+    passives {
+        Trample 3
+    }
+    
+    properties {
+        size 2x2
+        move_block everything_even_when_dead
+    }
+
+    abilities = {
+      spells = [
+            RatDash
+            RatDump
+        ],
+    },
+}
+
+PlagueRat2x2_2 = {
+    variant_of = PlagueRat2x2,
+    abilities = {
+      spells = [
+            RatDash2
+            RatDump2
+        ],
+    },
+},
+
+PlagueRat2x2_3 = {
+    variant_of = PlagueRat2x2_2,
+    abilities = {
+      spells = [
+            RatDash3
+            RatDump3
+        ],
+    },
+},
+
+PlagueRat3x3 {
+    variant_of PlagueRat2x2
+
+    graphics {
+        scale 4
+        uifloaters_offset 2
+    }
+    
+    properties {
+        size 3x3
+    }
+
+    abilities = {
+      spells = [
+            RatDash
+            RatDump
+        ],
+    },
+}
+
+PlagueRat3x3_2 {
+    variant_of PlagueRat3x3
+
+    abilities = {
+      spells = [
+            RatDash2,
+            RatDump2,
+        ],
+    },
+
+}
+
+PlagueRat3x3_3 = {
+    variant_of = PlagueRat3x3_2,
+    abilities = {
+      spells = [
+            RatDash3,
+            RatDump3,
+        ],
+    },
+},
+
+CharmedPlagueRat {
+    variant_of PlagueRat
+
+    properties {
+        faction allies
+        inherit_faction true
+    }
+
+    ai {
+        brain PlayerBrain // you can control it if its a PlayerBrain. This is normally reserved for familiars instead of charmed enemies but I don't care
+    }
+}
+
+CharmedCarcus {
+    graphics {
+        tint green // this changes the color of it obviously. I'm not sure how many tint options there is but yeah
+
+        movieclip Carcus
+        name "ENEMY_CARCASS_NAME"
+        water_mask medium
+        scale .85
+
+        tooltip "Spawns Maggots."
+    }    
+
+    stats {
+        strength 5
+        dexterity 5
+        constitution 5
+        intelligence 5
+        speed 0
+        charisma 5
+    }
+    
+    properties {
+        tag animal
+        health 1
+        movement 0
+        faction allies
+        inherit_faction true
+        corpse_health 0
+        can_be_backstabbed false
+    }
+
+    abilities = {
+        move None
+        spells = [
+            CharmedCarcusSpawn
+        ],
+    },
+
+    ai {
+        brain GenericBrain
+        auto_orient false
+        decision_weights default
+        move_weights keep_distance
+    }
+},
+
+CancerousRodent {
+    variant_of CharmedPinky
+
+    name "Cancerous Rodent"
+    tooltip "YOU DIE-DIE NOW"
+
+    graphics {
+        tint green
+
+        name "Cancerous Rodent"
+        tooltip "YOU DIE-DIE NOW"
+    }
+
+    stats {
+        strength 5
+        dexterity 5
+        constitution 5
+        intelligence 5
+        speed 5
+        charisma 5
+    }
+
+    properties {
+        kill_required false
+        dispersed_bonus_turns 1
+    }
+    
+    abilities {
+        move DefaultMove
+        attack VeryCancerousMeleeAttack
+    }
+
+    passives {
+        AllDamageImmune_IncludingSpeculative 1
+    }
+
+    ai {
+        brain PatternBrain
+        pattern {
+            move_then_do attack
+        }
+
+        decision_weights simple
+        move_weights random
+    }
+}
+
+VeryCancerousRodent{
+    variant_of CancerousRodent
+
+    name "Very Cancerous Rodent"
+}
+
+SuperBomb {
+    variant_of Bomb
+
+    abilities {
+        move None
+        attack SuperBombExplode
+    }
+}
+
+PlagueBomb {
+    variant_of Bomb
+
+    abilities {
+        move None
+        attack PlagueBombExplode
+    }
+}
+
+PlagueBomb2 {
+    variant_of Bomb
+
+    abilities {
+        move None
+        attack PlagueBombExplode2
+    }
+}
+
+SuperPlagueBomb {
+    variant_of Bomb
+
+    abilities {
+        move None
+        attack SuperPlagueBombExplode
+    }
+}
+
+SuperPlagueBomb2 {
+    variant_of Bomb
+
+    abilities {
+        move None
+        attack SuperPlagueBombExplode2
+    }
+}
+
+PinkyBomb {
+    variant_of Bomb
+
+    graphics {
+        name "Pinky Bomb"
+        tint [1 .7 .7 1]
+        scale .65
+    }
+
+    abilities {
+        move None
+        attack PinkyBombExplode
+    }
+}
+
+PlaguePinkyBomb {
+    variant_of PinkyBomb
+
+    abilities {
+        move None
+        attack PlaguePinkyBombExplode
+    }
+}
+
+PlaguePinkyBomb2 {
+    variant_of PinkyBomb
+
+    abilities {
+        move None
+        attack PlaguePinkyBombExplode2
+    }
+}

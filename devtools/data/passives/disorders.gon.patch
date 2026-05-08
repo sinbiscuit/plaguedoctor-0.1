@@ -1,0 +1,24 @@
+DejaVu.overwrite {
+    name "Just dont mind me ok?"
+	desc "ignore me..."
+    auto_plus_signs_on_name false
+    class Disorder
+
+    1 {
+        passives {
+    
+        }
+    }
+    2 {
+
+        passives {
+
+        }
+    }
+    3 {
+
+        passives {
+
+        }
+    }
+}
