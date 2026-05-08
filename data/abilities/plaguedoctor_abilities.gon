@@ -1456,6 +1456,13 @@ ParasiticBite {
             }
         }
     }
+
+    self_damage {
+        EquipRandomTemporaryItemFromPool {
+            pool UsefulParasites
+            slot random_empty_armor
+        }
+    }
 }
 
 ParasiticBite2 {
