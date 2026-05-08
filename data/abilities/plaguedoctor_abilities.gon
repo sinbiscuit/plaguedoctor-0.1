@@ -1458,9 +1458,11 @@ ParasiticBite {
     }
 
     self_damage {
-        Craft {
-            pool UsefulParasites
-            slot random_empty_armor
+        effects {
+            Craft {
+                pool UsefulParasites
+                slot random_empty_armor
+            }
         }
     }
 }
