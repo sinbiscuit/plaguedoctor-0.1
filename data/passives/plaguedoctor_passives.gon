@@ -506,14 +506,19 @@ MaggotMotel {
     }
 }
 
-Immunodeficiency {
-    name "Immunodeficiency"
-    desc "Enemies have -1 CON."
+CancerConjurer {
+    name "Cancer Conjurer"
+    desc "Your basic attack and spells inflict -1 Constitution to enemies."
     class Plaguedoctor
 
     1 {
         passives {
-            StatusAllCharactersOnSpawn {
+            AddStatusToBasicAttack {
+                Conditional_Enemy {
+                    ConstitutionUp -1
+                }
+            }
+            AddStatusToSpells {
                 Conditional_Enemy {
                     ConstitutionUp -1
                 }
@@ -521,11 +526,16 @@ Immunodeficiency {
         }
     }
     2 {
-        desc "Enemies have -2 CON. At the end of each round, all enemies lose a further -1 CON."
+        desc "Your basic attack and spells inflict -1 Constitution to enemies. At the end of each round, all enemies are inflicted with -1 Constitution."
         passives {
-            StatusAllCharactersOnSpawn {
+            AddStatusToBasicAttack {
                 Conditional_Enemy {
-                    ConstitutionUp -2
+                    ConstitutionUp -1
+                }
+            }
+            AddStatusToSpells {
+                Conditional_Enemy {
+                    ConstitutionUp -1
                 }
             }
             AutocastEachRound {
