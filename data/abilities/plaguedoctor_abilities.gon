@@ -1458,7 +1458,7 @@ ParasiticBite {
     }
 
     self_damage {
-        EquipRandomTemporaryItemFromPool {
+        Craft {
             pool UsefulParasites
             slot random_empty_armor
         }
