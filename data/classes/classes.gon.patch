@@ -59,7 +59,7 @@ Plaguedoctor.merge {
         AcidArmor
         ToxicBarbs
         GastroAcid
-        Hookworm
+        GrapplingHookworm
         RatShot
         RallyRats
         PlagueBurst
@@ -120,7 +120,7 @@ Plaguedoctor.merge {
         move [
             Swampwalk
             CadaverCart
-            Hookworm
+            GrapplingHookworm
             Wormhole
         ] 
 

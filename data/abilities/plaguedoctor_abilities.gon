@@ -1819,11 +1819,11 @@ GastroAcid2 {
     }
 }
 
-Hookworm {
+GrapplingHookworm {
     template straightshot_attack
     
     meta {
-        name "Hookworm"
+        name "Grappling Hookworm"
         desc "Shoot a hook forward and hook a unit or object, then pull yourself to them."
         class Plaguedoctor
         type_icon "movement"
@@ -1857,8 +1857,8 @@ Hookworm {
     }
 }
 
-Hookworm2 {
-    variant_of Hookworm
+GrapplingHookworm2 {
+    variant_of GrapplingHookworm
 
     meta {
         desc "Shoot a hook forward and hook a unit or object to deal damage and inflict Leech 1, then pull yourself to them."
