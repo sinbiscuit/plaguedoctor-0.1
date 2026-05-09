@@ -189,5 +189,5 @@ Plaguedoctor.merge {
         lck -2
     }
 
-    levelup_stats [str con int]
+    levelup_stats [cha con int]
 }
