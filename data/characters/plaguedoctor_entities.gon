@@ -89,6 +89,9 @@ PlagueRat2x2 {
 
     graphics {
         scale 2.5
+        uifloaters_offset 1.5
+        shadow_size 2
+        water_mask medmed
     }
     
     passives {
@@ -134,6 +137,8 @@ PlagueRat3x3 {
     graphics {
         scale 4
         uifloaters_offset 2
+        water_mask square
+        shadow_size 3
     }
     
     properties {

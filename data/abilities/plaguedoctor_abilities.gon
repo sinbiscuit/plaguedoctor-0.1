@@ -121,7 +121,7 @@ Myasis {
     target {
         max_aoe 0
         min_range 1
-        max_range 5
+        max_range 5+bonus_range
     }
 
     damage_instance {
@@ -173,7 +173,7 @@ TheChills {
     target {
         max_aoe 0
         min_range 1
-        max_range 5
+        max_range 5+bonus_range
     }
 
     temporary_effects {
@@ -451,7 +451,7 @@ Menticide {
 
     target {
         min_range 1
-        max_range 5
+        max_range 5+bonus_range
 #       restrictions [must_have_living_character must_have_enemy]
     }
 
@@ -735,7 +735,7 @@ SludgeBomb {
     
     target {
         max_aoe 1
-        max_range 4
+        max_range 4+bonus_range
     }
     
     damage_instance {
@@ -773,7 +773,7 @@ AcidSpray {
 
     meta {
         name "Acid Spray"
-        desc "An acid projectile that inflicts Magic Weakness 2."
+        desc "An acid projectile that inflicts Magic Weakness 1."
         class Plaguedoctor
     }
 
@@ -791,14 +791,14 @@ AcidSpray {
     
     target {
         max_aoe 0
-        max_range 4
+        max_range 5+bonus_range
     }
     
     damage_instance {
         damage 2
         
         effects {
-            MagicWeakness 2
+            MagicWeakness 1
         }
     }
 }
@@ -813,6 +813,7 @@ AcidSpray2 {
     damage_instance {
         
         effects {
+            MagicWeakness 2
             Poison 2
         }
     }
@@ -1053,7 +1054,7 @@ MutateMinion {
 
     target {
         min_range 0
-        max_range 4
+        max_range 5+bonus_range
         max_aoe 0
         restrictions aoe_must_exist
         aoe_restrictions familiars_only
@@ -1234,7 +1235,7 @@ Smog {
         
         aoe_mode line
         min_aoe 1
-        max_aoe 3+bonus_range
+        max_aoe 3
 
         aoe_considers_character_size true
         aoe_excludes_self true
@@ -1266,7 +1267,7 @@ Smog2 {
 
         aoe_mode cone
         min_aoe 1
-        max_aoe 3+bonus_range
+        max_aoe 3
 
         aoe_considers_character_size true
         aoe_excludes_self true
@@ -1347,7 +1348,7 @@ ZombificationSpores {
 
     target {
         min_range 1
-        max_range 5
+        max_range 5+bonus_range
         max_aoe 0
         aoe_restrictions must_have_corpse
         restrictions aoe_must_exist
@@ -1396,7 +1397,7 @@ StrangeMedicine {
     
     target {
         min_range 1
-        max_range 5
+        max_range 5+bonus_range
         restrictions [must_be_empty aoe_must_exist]
     }
 
@@ -1708,7 +1709,7 @@ ToxicBarbs {
 
     target {
         min_range 0
-        max_range 5
+        max_range 5+bonus_range
         max_aoe 0
     }
 
@@ -1788,7 +1789,7 @@ GastroAcid {
 
     target {
         min_range 0
-        max_range 5
+        max_range 5+bonus_range
         max_aoe 0
     }
 
@@ -1992,7 +1993,7 @@ RallyRats {
 
     target {
         min_range 0
-        max_range 4
+        max_range 4+bonus_range
         max_aoe 2
     }
     
@@ -2120,7 +2121,7 @@ ControlSludge {
 
     target {
         min_range 1
-        max_range 4
+        max_range 4+bonus_range
         max_aoe 0
     }
     
@@ -2427,7 +2428,7 @@ ToxicShock {
     target {
         max_aoe 0
         min_range 1
-        max_range 5
+        max_range 5+bonus_range
         X_is custom
     }
 
@@ -2537,7 +2538,7 @@ WormFormMaggotShot {
 
     target {
         min_range 1
-        max_range 4
+        max_range 4+bonus_range
     }
 
     damage_instance {
@@ -2587,7 +2588,7 @@ WormFormMutate {
 
     target {
         min_range 1
-        max_range 3
+        max_range 3+bonus_range
     }
 
     damage_instance {
@@ -2692,7 +2693,7 @@ RatFormThrowBomb {
     }
     
     target {
-        max_range 5
+        max_range 5+bonus_range
     }
 
     spawn {
@@ -2939,7 +2940,7 @@ SweetScent {
     target {
         max_aoe 0
         min_range 1
-        max_range 5
+        max_range 5+bonus_range
     }
     
     damage_instance {
@@ -2988,7 +2989,7 @@ Haze {
     
     target {
         max_aoe 1
-        max_range 4
+        max_range 4+bonus_range
     }
     
     damage_instance {
@@ -3009,7 +3010,7 @@ Haze2 {
 
     target {
         max_aoe 2
-        max_range 4
+        max_range 4+bonus_range
     }
 }
 
@@ -3035,7 +3036,7 @@ SoulSickness {
     target {
         max_aoe 0
         min_range 1
-        max_range 5
+        max_range 5+bonus_range
     }
 
     damage_instance {
