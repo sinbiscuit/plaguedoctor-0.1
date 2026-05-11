@@ -30,7 +30,7 @@ Plaguedoctor.merge {
         PlaguedoctorInfectBasic
     ]
 
-    ability_pool [ //44
+    ability_pool [ //43
         SpawnRatPlaguedoctor
         Myasis
         TheChills
@@ -55,7 +55,6 @@ Plaguedoctor.merge {
         StrangeMedicine
         ParasiticBite
         GammaBurst
-        MiracleOperation
         AcidArmor
         ToxicBarbs
         GastroAcid
@@ -139,7 +138,6 @@ Plaguedoctor.merge {
             BadBreath
             Smog
             ZombificationSpores
-            MiracleOperation
             AcidArmor
             ToxicBarbs
             GastroAcid
@@ -155,13 +153,12 @@ Plaguedoctor.merge {
         ] 
     }
     
-    passive_pool [ //17
+    passive_pool [ //16
         SuperRat
         ROUS
         DeadlyDose
         SwampThing
         RadioactiveRegen
-        Rabid
         Parasitologist
         AcolyteOfGlorg
         UnstableEvolution
@@ -177,7 +174,6 @@ Plaguedoctor.merge {
 
     complicated_passives [
         RadioactiveRegen
-        Rabid
         Parasitologist
         AcolyteOfGlorg
     ]

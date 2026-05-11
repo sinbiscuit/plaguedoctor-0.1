@@ -1,0 +1,84 @@
+MiracleOperation {
+    template spell
+    
+    meta {
+        name "Miracle Operation"
+        desc "A healing spell on an adjacent unit that heals more the less health the target unit has."
+        class Plaguedoctor
+        type_icon "heal"
+        icon_shell_frame attack
+        icon_damage_display "0-20"  // fuck the healing icon
+    }
+
+    graphics {
+        animation floatingmagic
+        affected_particle HealMed
+    }
+    
+    cost {
+        infcantrip true
+        mana 8
+    }
+    
+    target {
+        max_aoe 0
+        max_range 1
+        min_range 1
+    }
+
+    damage_instance {
+        heal 0
+        show_damage_on_0 true
+        type spell
+
+        effects {
+            DamageBasedOnMissingHealth -20
+        }
+    }
+}
+
+MiracleOperation2 {
+    variant_of MiracleOperation
+
+    meta {
+        desc "A healing spell on an adjacent unit that heals even more the less health the target unit has and removes debuffs."
+        icon_damage_display "0-30"
+    }
+    
+    damage_instance {
+        heal 0
+        show_damage_on_0 true
+        type spell
+
+        effects {
+            DamageBasedOnMissingHealth -30
+            Cleanse 0
+        }
+
+        elements [
+            Holy
+        ]
+    }
+}
+
+AutoRabies { //for Rabid
+    template self_buff
+    
+    meta {
+        name "AutoRabies"
+    }
+
+    graphics {
+		animate_name false
+        animation none
+		particle none
+    }
+
+    damage_instance {
+        damage 0 
+        
+        effects {
+            GainDisorder Rabies
+        }
+    }
+}

@@ -138,47 +138,6 @@ RadioactiveRegen {
     }
 }
 
-Rabid {
-    name "Rabid"
-    desc "Gain Rabies. You are immune to Madness, but become Uncontrollable if your INT is at 0 or less."
-    class Plaguedoctor
-
-    1 {
-        passives {
-            AbilityOnBattleStart AutoRabies
-            StatusImmunity [Madness PermanentMadness]
-
-            PassiveAtStatThreshold {
-                mode less_or_equal
-                threshold {
-                    int 0
-                }
-                passives {
-                    Uncontrollable 1
-                }
-            }
-        }
-    }
-    2 {
-        desc "Gain Rabies. You are immune to Madness, but become Uncontrollable and take an extra turn at the end of the round if your INT is at 0 or less."
-        passives {
-            AbilityOnBattleStart AutoRabies
-            StatusImmunity [Madness PermanentMadness]
-
-            PassiveAtStatThreshold {
-                mode less_or_equal
-                threshold {
-                    int 0
-                }
-                passives {
-                    Uncontrollable 1
-                    TogglableRoundEndExtraTurn 1
-                }
-            }
-        }
-    }
-}
-
 Parasitologist {
     name "Parasitologist"
     desc "You can unequip parasites freely. Find a parasite after each battle."
@@ -564,6 +523,9 @@ AfflictiveTouch {
     2 {
         desc "Your basic attack and when you make contact triggers the Poison, Bleed and Burn of a unit."
         passives {
+                AddStatusToBasicAttack {
+                TriggerDOTStatuses 0
+            }
             MeleeRevengeDamage {
                 effects {
                     TriggerDOTStatuses 0
