@@ -162,6 +162,9 @@ Rabid {
     2 {
         desc "Gain Rabies. You are immune to Madness, but become Uncontrollable and take an extra turn at the end of the round if your INT is at 0 or less."
         passives {
+            AbilityOnBattleStart AutoRabies
+            StatusImmunity [Madness PermanentMadness]
+
             PassiveAtStatThreshold {
                 mode less_or_equal
                 threshold {

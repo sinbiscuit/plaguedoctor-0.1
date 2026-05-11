@@ -2393,15 +2393,16 @@ MalignantMagic2 {
     variant_of MalignantMagic
     
     meta {
-        desc "Inflict Poison 1 to yourself and gain Magic Damage equal to your Poison until end of turn. (This costs less.)"
+        desc "Inflict Poison 2 to yourself and gain Magic Damage equal to your Poison until end of turn."
     }
 
     damage_instance {
         effects {
-            FullHeal 1
-            AllStatsUp 2
-            Poison 5
-            GainDisorderFromPool_PostCast diseases
+            Poison 2
+            Conditional_HasStatus {
+                status Poison
+                TempSpellDamageUp X
+            }
         }
     }
 }
