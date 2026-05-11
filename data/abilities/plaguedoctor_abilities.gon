@@ -143,7 +143,7 @@ Myasis {
 Myasis2 {
     variant_of Myasis
     meta {
-        desc "Destroy bodies in a area and spawn Myasis. This can also mutate certain units."
+        desc "Destroy bodies in a area and spawn Carcasses. This can also mutate certain units."
     }
 
     target {
@@ -490,6 +490,8 @@ PlagueOfRats {
         class Plaguedoctor
     }
 
+    tags [summon]
+
     graphics {
         particle PoisonPoof
 		animation floatingmagic
@@ -681,7 +683,7 @@ CadaverCart {
     }
 
     temporary_effects {
-        Trample 2
+        Trample 3
         ObjectDetector {
             object chapter_corpse_medium
             chance 100%
@@ -943,7 +945,7 @@ ForbiddenFallout {
 
     meta {
         name "Forbidden Fallout"
-        desc "Damage all enemies with a nuclear explosion that inflicts Poison 4. There will be permanent consequences for casting this spell... (Castable once per battle.) "
+        desc "Damage all enemies with a nuclear explosion that inflicts Poison 3. There will be permanent consequences for casting this spell... (Castable once per battle.) "
         class Plaguedoctor
     }
 
@@ -978,7 +980,7 @@ ForbiddenFallout {
         damage 7
 
         effects {
-            Poison 4
+            Poison 3
             ChangeTile {
                 chance 25%
                 tile ToxicTile
@@ -997,14 +999,14 @@ ForbiddenFallout2 {
     variant_of ForbiddenFallout
 
     meta {
-        desc "Heavily damage all enemies with a nuclear explosion that inflicts Poison 7. There will be permanent consequences for casting this spell... (Castable once per battle.) "
+        desc "Heavily damage all enemies with a nuclear explosion that inflicts Poison 5. There will be permanent consequences for casting this spell... (Castable once per battle.) "
     }
 
     damage_instance {
         damage 15
 
         effects {
-            Poison 7
+            Poison 5
         }
     }
 }
@@ -1538,7 +1540,7 @@ AcidArmor {
     
     meta {
         name "Acid Armor"
-        desc "Gain +2 Temporary Brace and Poisonous 1 until your next turn."
+        desc "Gain +1 Temporary Brace and Poisonous 1 until your next turn."
         class Plaguedoctor
         type_icon "misc"
     }
@@ -1556,7 +1558,7 @@ AcidArmor {
         effects {
             Temporary {
                 status Brace 
-                stacks 2
+                stacks 1
                 turns 1
                 expires_on_begin_turn true
             }
@@ -1574,20 +1576,20 @@ AcidArmor2 {
     variant_of AcidArmor
 
     meta {
-        desc "Gain +2 Temporary Brace, Poisonous 2 and Thorns 3 until your next turn."
+        desc "Gain +1 Temporary Brace, Poisonous 1 and Thorns 23 until your next turn."
     }
 
     damage_instance {
         effects {
             Temporary {
                 status Brace 
-                stacks 2
+                stacks 1
                 turns 1
                 expires_on_begin_turn true
             }
             Temporary {
                 status PoisonThorns
-                stacks 2
+                stacks 1
                 turns 1
                 expires_on_begin_turn true
             }
@@ -1833,7 +1835,7 @@ RatShot {
     }
 
     cost {
-        mana 8
+        mana 7
         infcantrip true
     }
 
@@ -1866,7 +1868,7 @@ RatShot2 {
     }
 
     cost {
-        mana 8
+        mana 7
         infcantrip true
     }
 
@@ -1942,7 +1944,7 @@ PlagueBurst {
     
     meta {
         name "Plague Burst"
-        desc "Make a unit with 3 Health or less explode, damaging and inflicting Poison 2 to adjacent units."
+        desc "Make a unit with 5 Health or less explode, damaging and inflicting Poison 2 to adjacent units."
         class Plaguedoctor
     }
 
@@ -1953,7 +1955,7 @@ PlagueBurst {
     
     cost {
         infcantrip true
-        mana 5
+        mana 7
     }
 
     target {
@@ -1965,7 +1967,7 @@ PlagueBurst {
 
         restrictions [must_have_animate_character must_have_living_character]
         aoe_restrictions must_have_low_health_character
-        low_health_character_threshold 3
+        low_health_character_threshold 5
     }
     
     damage_instance {
@@ -1982,7 +1984,7 @@ PlagueBurst2 {
     variant_of PlagueBurst
     
     meta {
-        desc "Make a unit with 5 Health or less explode, damaging and inflicting Poison 2 to units in an area."
+        desc "Make a unit with 5 Health or less explode, damaging and inflicting Poison 2 to units in a wider area. (This costs less.)"
     }
     
     cost {
@@ -2097,56 +2099,6 @@ ControlSludgePartTwo2 {
     }
 }
 
-CraftDrugs {
-    template self_buff
-    
-    meta {
-        name "Craft Drugs"
-        desc "Craft a random pill into your empty trinket slot. You can use consumables on allies. (Castable once per battle.)"
-        class Plaguedoctor
-    }
-
-    graphics {
-		animation tinker
-    }
-    
-    cost {
-        mana 4
-        cantrip true
-        requires_empty_trinket true
-        once_per_fight true
-    }
-
-    bonus_passives {
-        ConsumablesMeleeRange 1
-    }
-
-    damage_instance {
-        effects {
-            Craft {
-                pool pills
-                slot trinket
-            }
-        }
-    }
-}
-
-CraftDrugs2 {
-    variant_of CraftDrugs
-
-    meta {
-        name "Craft Drugs"
-        desc "Craft a random pill into your empty trinket slot. You can use consumables on allies. (Castable once per turn.)"
-        class Plaguedoctor
-    }
-    cost {
-        mana 4
-        cantrip true
-        requires_empty_trinket true
-    }
-}
-
-
 IpecacSpell {
     template spell
     
@@ -2191,7 +2143,7 @@ IpecacSpell {
 
     self_damage {
         RemoveStatusStacks {
-            status Thorns
+            status Poison
             stacks 999
         }
     }
@@ -2220,58 +2172,12 @@ IpecacSpell2 {
     }
 }
 
-ForbiddenFlask {
-    template self_buff
-    
-    meta {
-        name "Forbidden Flask"
-        desc "Heal yourself 20 HP and get +1 All Stats Up, but you also gain Poison 5. There will be permanent consequences for casting this spell... (Castable once per battle.)"
-        class Plaguedoctor
-    }
-
-    graphics {
-        animation gulp
-    }
-    
-    cost {
-        cantrip true
-        mana 0
-        once_per_fight true
-    }
-
-    damage_instance {
-        heal 20
-        effects {
-            AllStatsUp 1
-            Poison 5
-            GainDisorderFromPool_PostCast diseases
-        }
-    }
-}
-
-ForbiddenFlask2 {
-    variant_of ForbiddenFlask
-    
-    meta {
-        desc "Fully heal yourself and get +2 All Stats Up, but you also gain Poison 5. There will be permanent consequences for casting this spell... (Castable once per battle.)"
-    }
-
-    damage_instance {
-        effects {
-            FullHeal 1
-            AllStatsUp 2
-            Poison 5
-            GainDisorderFromPool_PostCast diseases
-        }
-    }
-}
-
 MalignantMagic { 
     template self_buff
 
     meta {
         name "Malignant Magic"
-        desc "Inflict Poison 1 to yourself and gain Magic Damage equal to your Poison until end of turn."
+        desc "Inflict Poison 1 to yourself and gain Magic Damage equal to your Poison the next time you use magic."
         class Plaguedoctor
     }
 
@@ -2297,22 +2203,41 @@ MalignantMagic {
             Poison 1
             Conditional_HasStatus {
                 status Poison
-                TempSpellDamageUp X
+                OneUseSpellDamageUp X
             }
         }
     }
 }
 
 MalignantMagic2 {
-    variant_of MalignantMagic
-    
+    template self_buff
+
     meta {
-        desc "Inflict Poison 2 to yourself and gain Magic Damage equal to your Poison until end of turn."
+        name "Malignant Magic+"
+        desc "Inflict Poison 1 to yourself and gain Magic Damage equal to your Poison the next time you use magic."
+        class Plaguedoctor
+    }
+
+    graphics {
+		animation floatingmagic
+    }
+    
+    cost {
+        mana 3
+        infcantrip true
+    }
+
+    target {
+        X_is custom
+    }
+
+    bonus_passives {
+        XIsCountStatusStacks Poison
     }
 
     damage_instance {
         effects {
-            Poison 2
+            Poison 1
             Conditional_HasStatus {
                 status Poison
                 TempSpellDamageUp X
@@ -2503,7 +2428,7 @@ WormFormMutate {
 
     target {
         min_range 1
-        max_range 3+bonus_range
+        max_range 5+bonus_range
     }
 
     damage_instance {

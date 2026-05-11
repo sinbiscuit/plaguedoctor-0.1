@@ -286,36 +286,6 @@ ACancerousRodent {
     }
 }
 
-Immunodeficiency {
-    name "Immunodeficiency"
-    desc "Enemies have -1 CON."
-    class Plaguedoctor
-
-    1 {
-        passives {
-            StatusAllCharactersOnSpawn {
-                Conditional_Enemy {
-                    ConstitutionUp -1
-                }
-            }
-        }
-    }
-    2 {
-        desc "Enemies have -2 CON. At the end of each round, all enemies lose a further -1 CON."
-        passives {
-            StatusAllCharactersOnSpawn {
-                Conditional_Enemy {
-                    ConstitutionUp -2
-                }
-            }
-            AutocastEachRound {
-                ability ImmunodeficiencyDoT
-                //even_if_stunned true
-            }
-        }
-    }
-}
-
 NuclearAnomaly {
     name "Nuclear Anomaly"
     desc "Whenever you move, explode adjacent tiles around you. You and familiars you spawn have Blast Resistance 2. Can mutate certain units."

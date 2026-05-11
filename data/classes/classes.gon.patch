@@ -30,7 +30,7 @@ Plaguedoctor.merge {
         PlaguedoctorInfectBasic
     ]
 
-    ability_pool [ //43
+    ability_pool [ //41
         SpawnRatPlaguedoctor
         Myasis
         TheChills
@@ -63,9 +63,7 @@ Plaguedoctor.merge {
         RallyRats
         PlagueBurst
         ControlSludge
-        CraftDrugs
         IpecacSpell
-        ForbiddenFlask
         MalignantMagic
         ToxicShock
         WormForm
@@ -81,7 +79,6 @@ Plaguedoctor.merge {
         PlagueOfRats
         ForbiddenFallout
         Ipecac
-        ForbiddenFlask
         RatForm
     ]
 
@@ -142,8 +139,6 @@ Plaguedoctor.merge {
             ToxicBarbs
             GastroAcid
             RallyRats
-            CraftDrugs
-            ForbiddenFlask
             MalignantMagic
             WormForm
             RatForm
