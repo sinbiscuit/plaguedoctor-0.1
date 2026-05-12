@@ -1423,11 +1423,13 @@ ParasiticBite {
     }
 
     target {
+        max_aoe 1+bonus_melee_range
         restrictions must_have_living_character
     }
     
     damage_instance {
         damage 5+bonus_melee_ability_damage
+        type melee
         can_collect_pickups true
 
         effects {
@@ -2902,5 +2904,281 @@ SoulSickness2 {
                 MagicWeakness 1
             }
         }
+    }
+}
+
+
+Pufferfish {
+    template self_buff
+
+    meta { 
+        name "Pufferfish"
+        desc "Gain 1 Thorns. When you take damage while you have Thorns, lose 1 Thorns; then shoot needles that deal 2 damage in eight directions and inflict Poison 1."
+        class Plaguedoctor
+    }
+
+    graphics {
+        animation gulp
+    }
+
+    cost {
+        infcantrip true
+        mana 3
+    }
+
+    bonus_passives {
+        StatusOnTookDamage {
+            Conditional_HasStatus {
+                status Thorns
+                ImmediateUseAbility_Instant ConvenientPufferfishAttack
+                RemoveStatusStacks {
+                    status Thorns
+                    stacks 1
+                }
+            }
+        }
+    }
+
+    damage_instance {
+        effects {
+            Thorns 1
+        }
+    }
+}
+
+Pufferfish2 {
+    variant_of Pufferfish
+
+    meta { 
+        name "Pufferfish"
+        desc "Gain 1 Thorns. When you take damage while you have Thorns, lose 1 Thorns; then shoot needles that deal 2 damage in eight directions and inflict Poison 1. This has a chance to repeat."
+        class Plaguedoctor
+    }
+
+    bonus_passives {
+        StatusOnTookDamage {
+            Conditional_HasStatus {
+                status Thorns
+                ImmediateUseAbility_Instant ConvenientPufferfishAttack2
+                RemoveStatusStacks {
+                    status Thorns
+                    stacks 1
+                }
+            }
+        }
+    }
+}
+
+ConvenientPufferfishAttack {
+    template straightshot_attack
+
+    graphics {
+        projectile NeedleProjectile
+        animation none
+        animate_name false
+    }
+    
+    target {
+        aoe_mode custom
+        aoe_symmetry four_way
+        custom_aoe [[1, 1] [1, 0]]
+    }
+
+    damage_instance {
+        damage 2
+
+        effects {
+            Poison 1
+        }
+    }
+}
+
+ConvenientPufferfishAttack2 {
+    variant_of ConvenientPufferfishAttack
+
+    graphics {
+        projectile NeedleProjectile
+        animation none
+        animate_name false
+    }
+    
+    temporary_effects {
+        Fury 75
+    }
+}
+
+ScorpionForm {
+    template self_buff
+    
+    meta {
+        name "Form of the Scorpion"
+        desc "Enter Scorpion Form, gaining Brace 1, +10 Shield, +2 Strength, -2 Constitution and -2 Speed. Your basic attack becomes Grapple and this becomes Sting."
+        class Plaguedoctor
+        type_icon "buff"
+    }
+
+    tags [shapeshift]
+
+    graphics {
+        animation druidTransform
+    }
+    
+    cost {
+        infcantrip true
+        mana 0
+    }
+    
+    damage_instance {
+        effects {
+            ApplyPassives {
+                AddTag bug
+            }
+
+            TransformBasicAttack ScorpionFormGrapple
+            TransformAbility ScorpionFormSting
+            Brace 1
+            Shield 5
+            StrengthUp 2
+            SpeedUp -2
+            ConstitutionUp -2
+
+            CatPartsTransform {
+                tail 1501
+                body 1022
+                arm1 1023
+                arm2 1023
+                leg1 1024
+                leg2 1024
+            }
+        }
+    }
+}
+
+ScorpionForm2 {
+    variant_of ScorpionForm
+    
+    meta {
+        desc "Enter Scorpion Form, gaining Brace 1, +5 Shield, +2 Strength, -2 Constitution and -2 Speed. Your basic attack becomes Grapple+ and this becomes Sting+."
+        class Plaguedoctor
+    }
+    
+    damage_instance {
+        effects {
+            ApplyPassives {
+                AddTag bug
+            }
+
+            TransformBasicAttack ScorpionFormGrapple2
+            TransformAbility ScorpionFormSting2
+            Brace 1
+            Shield 5
+            StrengthUp 2
+            SpeedUp -2
+            ConstitutionUp -2
+
+            CatPartsTransform {
+                tail 1501
+                body 1022
+                arm1 1023
+                arm2 1023
+                leg1 1024
+                leg2 1024
+            }
+        }
+    }
+}
+
+ScorpionFormGrapple {
+    variant_of Grapple
+
+    meta {
+        name "Grapple"
+        desc "A weak melee attack that Immobilizes an adjacent unit for as long as you remain adjacent."
+        class Plaguedoctor
+        ability_icon Grapple
+        animate_name false
+    }
+
+    cost {
+        mana 0
+        infcantrip false
+        move_points 0
+        act_points 1
+    }
+
+    target {
+        restrictions must_have_character
+    }
+
+    damage_instance {
+        damage 1
+        type melee
+        effects {
+            Grappled 1
+        }
+    }
+}
+
+ScorpionFormGrapple2 {
+    variant_of ScorpionFormGrapple
+
+    meta {
+        desc "A weak melee attack that Immobilizes an adjacent unit for as long as you remain adjacent. You have immunity to Knockback while Grappling."
+        class Plaguedoctor
+        animate_name false
+    }
+
+    bonus_passives {
+        PassiveWhileHasStatus {
+            status Grappling
+            passives {
+                KnockbackImmunity 1
+            }
+        }
+    }
+}
+
+ScorpionFormSting {
+    template melee_attack
+
+    meta {
+        name "Sting"
+        desc "A melee attack that inflicts Poison 1."
+        class Plaguedoctor
+    }
+
+    graphics {
+        animation scorpionSting
+    }
+
+    cost {
+        mana 5
+        infcantrip true
+    }
+
+    target { 
+        max_aoe 1+bonus_melee_range
+        aoe_restrictions must_have_line_of_sight_unpurgable
+    }
+
+    damage_instance {
+        damage 5+bonus_melee_ability_damage
+        type melee
+        effects {
+            Poison 1
+        }
+    }
+}
+
+ScorpionFormSting2 {
+    variant_of ScorpionFormSting
+
+    meta {
+        desc "A melee attack that inflicts Poison 1. This has a chance to repeat."
+        class Plaguedoctor
+    }
+
+    temporary_effects {
+        Fury 75
     }
 }
