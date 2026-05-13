@@ -138,37 +138,6 @@ RadioactiveRegen {
     }
 }
 
-Parasitologist {
-    name "Parasitologist"
-    desc "You can unequip parasites freely. Find a parasite after each battle."
-    class Plaguedoctor
-
-    1 {
-        passives {
-            ParasitesArentCursed 1
-            StatusOnBattleEnd {
-                    FindItemFromPool UsefulParasites
-            }
-        }
-    }
-
-
-    2 {
-        desc "You can unequip parasites freely. Find a parasite after each battle, and you have a 33% chance to find a RARE parasite after battle."
-
-        passives {
-            ParasitesArentCursed 1
-            StatusOnBattleEnd {
-                FindItemFromPool UsefulParasites
-                Conditional_GoodRoll {
-                    odds 33%
-                    FindItemFromPool RareParasites
-                }
-            }
-        }
-    }
-}
-
 AcolyteOfGlorg {
     name "Acolyte Of Glorg"
     desc "Your spells cost -1 Mana for each parasite you have equipped."

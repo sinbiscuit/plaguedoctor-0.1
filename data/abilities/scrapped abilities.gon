@@ -82,3 +82,64 @@ AutoRabies { //for Rabid
         }
     }
 }
+
+ParasiticBite {
+    template melee_attack
+    
+    meta {
+        name "Parasitic Bite"
+        desc "A melee attack on a unit that equips a random temporary parasite to an empty armor slot. If you are poisoned, this always crits."
+        class Plaguedoctor
+    }
+
+    graphics {
+		animation biteattack
+    }
+    
+    cost {
+        infcantrip true
+        mana 5
+    }
+
+    target {
+        max_aoe 1+bonus_melee_range
+        restrictions must_have_living_character
+    }
+    
+    damage_instance {
+        damage 5+bonus_melee_ability_damage
+        type melee
+        can_collect_pickups true
+
+        effects {
+            Conditional_SourceHasStatus {
+                status Poison
+                BonusCritChance 100
+            }
+        }
+    }
+
+    self_damage {
+        effects {
+            Craft {
+                pool UsefulParasites
+                slot random_empty_armor
+            }
+        }
+    }
+}
+
+ParasiticBite2 {
+    variant_of ParasiticBite
+
+    meta {
+        desc "A stronger melee attack on a unit with Lifesteal that equips a random temporary parasite to an empty armor slot. If you are poisoned, this always crits."
+    }
+
+    damage_instance {
+        damage 8+bonus_melee_ability_damage
+        effects {
+            Leech 1
+        }
+    }
+}

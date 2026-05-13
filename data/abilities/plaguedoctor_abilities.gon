@@ -741,7 +741,7 @@ SludgeBomb {
     }
     
     damage_instance {
-        damage 4
+        damage 3
         
         effects {
             Poison 1
@@ -762,11 +762,16 @@ SludgeBomb2 {
     }
 
     damage_instance {
-        damage 7
+        damage 5
         
         effects {
             Poison 2
+            ChangeTile CreepTile
         }
+        
+        elements [
+            Explosion
+        ]
     }
 }
 
@@ -809,14 +814,14 @@ AcidSpray2 {
     variant_of AcidSpray
 
     meta {
-        desc "An acid projectile that inflicts Magic Weakness 2 and Poison 2."
+        desc "An acid projectile that inflicts Magic Weakness 2 and Poison 1."
     }
     
     damage_instance {
         
         effects {
             MagicWeakness 2
-            Poison 2
+            Poison 1
         }
     }
 }
@@ -1190,44 +1195,44 @@ BadBreath2 {
     }
 }
 
-Smog {
-    template spawn
 
+Smog {
+    template spell
+    
     meta {
         name "Smog"
-        desc "Blow a line of poisonous gas clouds three tiles forward."
+        desc "Deal damage and inflict Poison 2 while spreading Gas Clouds around you."
         class Plaguedoctor
     }
 
     graphics {
-		animation blowFire
         particle PoisonPoof
-        delay 10
+        animation blowFire
     }
-    
-    cost {
-        infcantrip true
-        mana 4
-    }
-    
-    target {
-        target_mode direction
-        
-        aoe_mode line
-        min_aoe 1
-        max_aoe 3
 
-        aoe_considers_character_size true
-        aoe_excludes_self true
+    cost {
+        mana 8
+        infcantrip true
     }
-    
-    spawn {
-        object GasCloud
-        layer gas
+
+    target {
+        target_mode none
+        
+        aoe_mode circle
+        max_aoe 2
+        min_aoe 1
     }
 
     damage_instance {
-        damage 0
+        damage 3
+
+        effects {
+            Poison 1
+
+            DustOnHit {
+                object GasCloud
+            }
+        }
 
         elements [
             Wind
@@ -1239,18 +1244,23 @@ Smog2 {
     variant_of Smog
 
     meta {
-        desc "Blow a cone of poisonous gas clouds three tiles forward."
+        desc "Deal more damage and inflict Poison 3 while spreading Gas Clouds around you."
     }
 
-    target {
-        target_mode direction
+    damage_instance {
+        damage 5
 
-        aoe_mode cone
-        min_aoe 1
-        max_aoe 3
+        effects {
+            Poison 2
 
-        aoe_considers_character_size true
-        aoe_excludes_self true
+            DustOnHit {
+                object GasCloud
+            }
+        }
+
+        elements [
+            Wind
+        ]
     }
 }
 
@@ -1400,68 +1410,6 @@ StrangeMedicine2 {
     
     target {
         max_range 20
-    }
-}
-
-
-ParasiticBite {
-    template melee_attack
-    
-    meta {
-        name "Parasitic Bite"
-        desc "A melee attack on a unit that equips a random temporary parasite to an empty armor slot. If you are poisoned, this always crits."
-        class Plaguedoctor
-    }
-
-    graphics {
-		animation biteattack
-    }
-    
-    cost {
-        infcantrip true
-        mana 5
-    }
-
-    target {
-        max_aoe 1+bonus_melee_range
-        restrictions must_have_living_character
-    }
-    
-    damage_instance {
-        damage 5+bonus_melee_ability_damage
-        type melee
-        can_collect_pickups true
-
-        effects {
-            Conditional_SourceHasStatus {
-                status Poison
-                BonusCritChance 100
-            }
-        }
-    }
-
-    self_damage {
-        effects {
-            Craft {
-                pool UsefulParasites
-                slot random_empty_armor
-            }
-        }
-    }
-}
-
-ParasiticBite2 {
-    variant_of ParasiticBite
-
-    meta {
-        desc "A stronger melee attack on a unit with Lifesteal that equips a random temporary parasite to an empty armor slot. If you are poisoned, this always crits."
-    }
-
-    damage_instance {
-        damage 8+bonus_melee_ability_damage
-        effects {
-            Leech 1
-        }
     }
 }
 
@@ -2906,7 +2854,6 @@ SoulSickness2 {
         }
     }
 }
-
 
 Pufferfish {
     template self_buff

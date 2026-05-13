@@ -30,7 +30,7 @@ Plaguedoctor.merge {
         PlaguedoctorInfectBasic
     ]
 
-    ability_pool [ //43
+    ability_pool [ //42
         SpawnRatPlaguedoctor
         Myasis
         TheChills
@@ -53,7 +53,6 @@ Plaguedoctor.merge {
         PinkyShot
         ZombificationSpores
         StrangeMedicine
-        ParasiticBite
         GammaBurst
         AcidArmor
         ToxicBarbs
@@ -90,7 +89,6 @@ Plaguedoctor.merge {
         Pandemic
         MutateMinion
         PinkyShot
-        ParasiticBite
         ToxicShock
         Haze
         GammaBurst
@@ -103,7 +101,6 @@ Plaguedoctor.merge {
             SludgeBomb
             AcidSpray
             ForbiddenFallout
-            ParasiticBite
             GammaBurst
             PinkyShot
             RatShot
@@ -152,13 +149,12 @@ Plaguedoctor.merge {
         ] 
     }
     
-    passive_pool [ //16
+    passive_pool [ //15
         SuperRat
         ROUS
         DeadlyDose
         SwampThing
         RadioactiveRegen
-        Parasitologist
         AcolyteOfGlorg
         UnstableEvolution
         DiseasedVermin
@@ -173,7 +169,6 @@ Plaguedoctor.merge {
 
     complicated_passives [
         RadioactiveRegen
-        Parasitologist
         AcolyteOfGlorg
     ]
 
