@@ -500,37 +500,3 @@ FloralScent {
         }
     }
 }
-
-
-Pufferfish {
-    name "Pufferfish"
-    desc "+4 Thorns. When you take damage while you have Thorns, lose 1 Thorns, then shoot needles that deal 2 damage in eight directions and inflict Poison 1."
-    class Plaguedoctor
-
-    1 {
-        passives {
-            Thorns 4
-            StatusOnTookDamage {
-                Conditional_HasStatus {
-                    status Thorns
-                    ImmediateUseAbility_Instant ConvenientPufferfishAttack
-                    RemoveStatusStacks {
-                        status Thorns
-                        stacks 1
-                    }
-                }
-            }
-        }
-    }
-    2 {
-        desc "At the end of your turn, heal other allies around you for 3 HP and remove 2 stacks of random debuffs. You have +2 Health Regeneration."
-        passives {
-            AutocastEachTurn {
-                ability FloralScentAoE2
-                force_display_name false
-                //even_if_stunned true
-            }
-            HealthRegenUp 2
-        }
-    }
-}
