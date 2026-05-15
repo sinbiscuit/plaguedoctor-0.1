@@ -30,7 +30,7 @@ Plaguedoctor.merge {
         PlaguedoctorInfectBasic
     ]
 
-    ability_pool [ //42
+    ability_pool [ //43
         SpawnRatPlaguedoctor
         Myasis
         TheChills
@@ -165,6 +165,7 @@ Plaguedoctor.merge {
         MaggotMotel
         AfflictiveTouch
         FloralScent
+        RatKing
     ]
 
     complicated_passives [
