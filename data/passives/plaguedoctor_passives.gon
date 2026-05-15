@@ -186,6 +186,8 @@ UnstableEvolution {
 
         passives {
             StatusEachTurnEnd {
+                RandomStatUp 3
+                RandomStatDown 1
                 RandomStatusFromPool {
                     Thorns 1
                     Brace 1
@@ -211,7 +213,7 @@ UnstableEvolution {
 
 DiseasedVermin {
     name "Diseased Vermin"
-    desc "Familiars you spawn inflict Poison 1 with their basic attacks and have Poisonous 1. "
+    desc "Familiars you spawn inflict Poison 1 and Weakness 1 with their basic attacks and have Poisonous 1."
     class Plaguedoctor
 
     1 {
@@ -220,17 +222,19 @@ DiseasedVermin {
                 PoisonThorns 1
                 AddStatusToBasicAttack {
                     Poison = 1
+                    Weakness = 1
                 }
             }
         }
     }
     2 {
-        desc "Familiars you spawn inflict Poison 2 with their basic attacks and have Poisonous 2. "
+        desc "Familiars you spawn inflict Poison 2 and Weakness 1 with their basic attacks and have Poisonous 2."
         passives {
             AddPassivesToMinions {
-                PoisonThorns 1
+                PoisonThorns 2
                 AddStatusToBasicAttack {
                     Poison = 2
+                    Weakness = 2
                 }
             }
         }
@@ -296,6 +300,7 @@ NuclearAnomaly {
             DamageNeighborsAfterMove {
                 type spell
                 damage 8
+                knockback 1
 
                 effects {
                     VisualFXTile Explosion
@@ -497,6 +502,39 @@ FloralScent {
                 //even_if_stunned true
             }
             HealthRegenUp 2
+        }
+    }
+}
+
+RatKingPassive {
+    name "Rat King"
+    desc "Start each battle with 2 Rat familiars. All enemy rats are permanently charmed and join your team at the start of battle."
+    class Plaguedoctor
+
+    1 {
+        passives {
+            AbilityOnBattleStart RatKingCapture
+            SpawnOnBattleStart {
+                object CharmedRat
+                number 2
+            }
+        }
+    }
+    2 {
+        desc "Start each battle with 2 Rat familiars. All enemy rats are permanently charmed and join your team at the start of battle. Allied rats have All Stats Up."
+        passives {
+            AbilityOnBattleStart RatKingCapture
+            StatusAllCharactersOnSpawn {
+                Conditional_HasTag {
+                    tag rat
+                    AllStatsUp 1
+                    HealthGain 4
+                }
+            }
+            SpawnOnBattleStart {
+                object CharmedRat
+                number 2
+            }
         }
     }
 }

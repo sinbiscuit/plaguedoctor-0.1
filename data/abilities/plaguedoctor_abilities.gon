@@ -106,7 +106,7 @@ Myasis {
     
     meta {
         name "Myasis"
-        desc "Destroy a body and spawn a Myasis. This can also mutate certain units."
+        desc "Destroy a body and spawn a Carcass. This can also mutate certain units."
         class Plaguedoctor
         type_icon "spawn"
     }
@@ -2235,11 +2235,11 @@ ToxicShock2 {
     variant_of ToxicShock
     
     meta {
-        desc "A stronger magical attack on a single unit that does additional damage equal to your Poison and inflicts Poison 1"
+        desc "A magical attack on a single unit that does additional damage equal to twice your Poison and inflicts Poison 1"
     }
 
     damage_instance {
-        damage X+5
+        damage (2*X)+3
         Poison 1
     }
 }
@@ -3127,5 +3127,39 @@ ScorpionFormSting2 {
 
     temporary_effects {
         Fury 75
+    }
+}
+
+RatKingCapture { //for rat king passive
+    template spell
+
+    cost {
+        infcantrip true
+        mana 15
+    }
+    
+    graphics {
+		animate_name false
+        animation none
+		particle none
+    }
+
+    target {
+        target_mode none
+        aoe_mode all
+        max_aoe 0
+        max_range 20
+    }
+
+    damage_instance {
+        effects {
+            Conditional_HasTag {
+                tag rat
+                Conditional_Enemy {
+                    CaptureFamiliar 1
+                    FactionConversion 1
+                }
+            }
+        }
     }
 }
