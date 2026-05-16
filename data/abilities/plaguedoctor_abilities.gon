@@ -1355,7 +1355,7 @@ ZombificationSpores {
 ZombificationSpores2 {
     variant_of ZombificationSpores
     meta {
-        desc "Resurrect a body as a zombie. It takes an AI-controlled extra turn and has All Stats Up +2, but has Doom 1."
+        desc "Resurrect a body as a zombie. It takes an AI-controlled extra turn and has All Stats Up 2, but has Doom 1."
     }
 
     damage_instance {
@@ -3159,6 +3159,226 @@ RatKingCapture { //for rat king passive
                     CaptureFamiliar 1
                     FactionConversion 1
                 }
+            }
+        }
+    }
+}
+
+SpiderForm {
+    template self_buff
+    
+    meta {
+        name "Form of the Spider"
+        desc "Enter Spider Form, gaining +2 Speed, +2 Luck, -2 Strength and -2 Intelligence. Your basic attack becomes Leech Life and this becomes Web Shot."
+        class Plaguedoctor
+        type_icon "buff"
+    }
+
+    tags [shapeshift]
+
+    graphics {
+        animation druidTransform
+    }
+    
+    cost {
+        infcantrip true
+        mana 0
+    }
+    
+    damage_instance {
+        effects {
+            ApplyPassives {
+                AddTag bug
+            }
+
+            TransformBasicAttack SpiderFormLeechLife
+            TransformAbility SpiderFormWebShot
+            StrengthUp -2
+            SpeedUp 2
+            IntelligenceUp -2
+            LuckUp 2
+
+            CatPartsTransform {
+                tail 1019
+                body 1022
+                arm1 1004
+                arm2 1004
+                leg1 1005
+                leg2 1005
+                mouth 1026
+            }
+        }
+    }
+}
+
+SpiderForm2 {
+    variant_of SpiderForm
+    
+    meta {
+        desc "Enter Spider Form, gaining +2 Speed, +2 Luck, -2 Strength and -2 Intelligence. Your basic attack becomes Leech Life+ and this becomes Web Shot_."
+    }
+
+    damage_instance {
+        effects {
+            ApplyPassives {
+                AddTag bug
+            }
+
+            TransformBasicAttack SpiderFormLeechLife2
+            TransformAbility SpiderFormWebShot2
+            StrengthUp -2
+            SpeedUp 2
+            IntelligenceUp -2
+            LuckUp 2
+
+            CatPartsTransform {
+                tail 1019
+                body 1022
+                arm1 1004
+                arm2 1004
+                leg1 1005
+                leg2 1005
+                mouth 1026
+            }
+        }
+    }
+}
+
+SpiderFormLeechLife {
+    template melee_attack
+
+    meta {
+        name "Leech Life"
+        desc "A melee attack that does additional damage equal to your Poison. If this hits a Webbed target, this has Lifesteal."
+        class Plaguedoctor
+        animate_name false
+    }
+
+    graphics {
+	    animation dashbite
+    }
+
+    cost {
+        mana 0
+        infcantrip false
+        move_points 0
+        act_points 1
+    }
+
+    target {
+        X_is custom
+    }
+
+    bonus_passives {
+        XIsCountStatusStacks Poison
+    }
+
+    damage_instance {
+        damage X+5+bonus_melee_damage
+        type melee
+        effects {
+            Conditional_HasStatus {
+                status Webbed
+                Leech 1
+            }
+        }
+    }
+}
+
+SpiderFormLeechLife2 {
+    variant_of SpiderFormLeechLife
+
+    meta {
+        desc "A melee attack that does additional damage equal to your Poison and inflicts Infested 1. If this hits a Webbed target, this has Lifesteal."
+        animate_name false
+    }
+
+    target {
+        X_is custom
+    }
+
+    bonus_passives {
+        XIsCountStatusStacks Poison
+    }
+
+    damage_instance {
+        damage X+5+bonus_melee_damage
+        type melee
+        effects {
+            Infested 1
+            Conditional_HasStatus {
+                status Webbed
+                Leech 1
+            }
+        }
+    }
+}
+
+SpiderFormWebShot {
+    template lobbed_attack
+
+    meta {
+        name "Web Shot"
+        desc "Lob a web shot that inflicts Webbed 1 on a unit or leaves a Web Trap on a empty tile. This only has a 25% chance to work on boss units and large enemies. "
+        class Plaguedoctor
+        animate_name false
+    }
+
+    target {
+        min_range 1
+        max_range 3
+        restrictions none
+        knockback_mode zero
+    }
+	
+    graphics {
+        projectile Webball
+    }
+
+    cost {
+        mana 5
+        infcantrip true
+    }
+	
+    damage_instance {
+        damage 0
+
+        effects {
+            SpawnNeutralWebTrapOnMiss 1
+            Conditional_BossOrBig {
+                Webbed [1 .25]
+            }
+            Conditional_NotBossOrBig {
+                Webbed 1
+            }
+        }
+    }
+}
+
+SpiderFormWebShot2 {
+    variant_of SpiderFormWebShot
+
+    meta {
+        desc "Lob a web shot that inflicts Webbed 1 on a unit anywhere or leave a Web Trap on a empty tile. This only has a 25% chance to work on boss units and large enemies."
+    }
+
+    target {
+        min_range 1
+        max_range 20
+        restrictions none
+        knockback_mode zero
+    }
+	
+    damage_instance {
+        damage 0
+
+        effects {
+            SpawnNeutralWebTrapOnMiss 1
+            Conditional_BossOrBig {
+                Webbed [1 .25]
+            }
+            Conditional_NotBossOrBig {
+                Webbed 1
             }
         }
     }

@@ -538,3 +538,23 @@ RatKingPassive {
         }
     }
 }
+
+Incubated {
+    name "Incubated"
+    desc "When you're downed, spawn a spider kitten familiar."
+    class Plaguedoctor
+
+    1 {
+        passives {
+            SpawnThingOnDeath CharmedSpiderKitten
+        }
+    }
+    2 {
+        desc "When you're downed, spawn two spider kitten familiars."
+
+        passives {
+            SpawnThingOnDeath CharmedSpiderKitten
+            SpawnThingOnDeath CharmedSpiderKitten
+        }
+    }
+}

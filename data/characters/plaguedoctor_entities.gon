@@ -364,3 +364,65 @@ PlaguePinkyBomb2 {
         attack PlaguePinkyBombExplode2
     }
 }
+
+CharmedSpiderKitten {
+    graphics {
+        movieclip _CAT
+        name "Spider Kitten"
+        custom_cat_data SpiderCat
+        scale .8
+        tooltip "ENEMY_SPIDERKITTEN_DESC"
+    }
+
+    stats {
+        strength 5
+        dexterity 5
+        constitution 5
+        intelligence 5
+        speed 5
+        charisma 5
+        luck 5
+    }
+    
+    properties {
+        tag [cat bug]
+        type cat
+
+        health 20
+        initial_health 10
+        dispersed_bonus_turns 1
+
+        base_mana_regen 999
+        faction = allies,
+        inherit_faction = true,
+        movement 3
+        initiative 16
+    }
+
+    abilities {
+        move DefaultMove
+        attack WebShot
+        
+        spells [
+            SmallSpiderMelee
+        ]
+    }
+
+    passives {
+        StatusImmunity Webbed
+    }
+    
+    ai {
+        brain PatternBrain
+        decision_weights default
+        move_weights keep_distance
+
+        fallback_advances_pattern false
+        stun_advances_pattern false
+
+        pattern {
+            do_priority [WebShot, SmallSpiderMelee]
+            do_priority [SmallSpiderMelee, WebShot]
+        }
+    }
+}

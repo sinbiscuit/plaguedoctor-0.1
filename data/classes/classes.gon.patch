@@ -30,7 +30,7 @@ Plaguedoctor.merge {
         PlaguedoctorInfectBasic
     ]
 
-    ability_pool [ //43
+    ability_pool [ //44
         SpawnRatPlaguedoctor
         Myasis
         TheChills
@@ -146,10 +146,11 @@ Plaguedoctor.merge {
             SoulSickness
             Pufferfish
             ScorpionForm
+            SpiderForm
         ] 
     }
     
-    passive_pool [ //16
+    passive_pool [ //17
         SuperRat
         ROUS
         DeadlyDose
@@ -166,6 +167,7 @@ Plaguedoctor.merge {
         AfflictiveTouch
         FloralScent
         RatKingPassive
+        Incubated
     ]
 
     complicated_passives [
