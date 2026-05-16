@@ -1217,6 +1217,7 @@ Smog {
 
     target {
         target_mode none
+        knockback_mode character_to_tile
         
         aoe_mode circle
         max_aoe 2
@@ -1227,11 +1228,8 @@ Smog {
         damage 3
 
         effects {
-            Poison 1
-
-            DustOnHit {
-                object GasCloud
-            }
+            Poison 2
+            BounceObject GasCloud
         }
 
         elements [
@@ -1251,7 +1249,7 @@ Smog2 {
         damage 5
 
         effects {
-            Poison 2
+            Poison 3
 
             DustOnHit {
                 object GasCloud
@@ -2429,6 +2427,9 @@ RatForm {
     
     damage_instance {
         effects {
+            ApplyPassives {
+                AddTag rat
+            }
             TransformBasicAttack RatFormThrowBomb
             TransformAbility RatFormTurtle
             SpeedUp 2
@@ -2763,7 +2764,7 @@ Haze {
 
     meta {
         name "Haze"
-        desc "Create Gas Clouds in an area."
+        desc "Create Gas Clouds in an area, inflicting Poison 1 to units."
         class Plaguedoctor
     }
 
@@ -2778,15 +2779,15 @@ Haze {
     }
     
     target {
+        knockback_mode character_to_tile
         max_aoe 1
         max_range 4+bonus_range
     }
     
     damage_instance {
         effects {
-            DustOnHit {
-                object GasCloud
-            }
+            Poison 1
+            BounceObject GasCloud
         }
     }
 }
@@ -2795,7 +2796,7 @@ Haze2 {
     variant_of Haze
 
     meta {
-        desc "Create Gas Clouds in a larger area."
+        desc "Create Gas Clouds in a larger area, inflicting Poison 1 to units."
     }
 
     target {
