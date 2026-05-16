@@ -140,18 +140,19 @@ RadioactiveRegen {
 
 AcolyteOfGlorg {
     name "Acolyte Of Glorg"
-    desc "Your spells cost -1 Mana for each parasite you have equipped."
+    desc "Your spells cost -1 Mana for each parasite you have equipped. You can unequip parasites freely."
     class Plaguedoctor
 
     1 {
         passives {
             ReduceSpellCostsPerParasite 1
+            ParasitesArentCursed 1
         }
     }
 
 
     2 {
-        desc "Your spells cost -1 Mana for each parasite you have equipped. Your spells inflict Rot 1 against enemies."
+        desc "Your spells cost -1 Mana for each parasite you have equipped. You can unequip parasites freely. Your spells inflict Rot 1 against enemies."
 
         passives {
             AddStatusToSpells {
@@ -557,4 +558,76 @@ Incubated {
             SpawnThingOnDeath CharmedSpiderKitten
         }
     }
+}
+
+Corrosion {
+    name "Corrosion"
+    desc "Your spells remove all shields and 1 stack of Brace from enemies."
+    class Plaguedoctor
+
+
+    1 {
+        passives {
+            AddStatusToSpells {
+                Conditional_Enemy {
+                    Shield -999
+                    DivineShield -999
+                    Conditional_HasStatus {
+                        status Brace
+                        Brace -1
+                    }
+                }
+            }
+        }
+    }
+    2 {
+        desc "Your spells remove all shields and 1 stack of Brace from enemies. They also apply Bruise 1."
+        passives {
+            AddStatusToSpells {
+                Conditional_Enemy {
+                    Shield -999
+                    DivineShield -999
+                    Bruise 1
+                    Conditional_HasStatus {
+                        status Brace
+                        Brace -1
+                    }
+                }
+            }
+        }
+    }
+}
+
+PollutantPower {
+    name "Pollutant Power"
+    desc "When you damage a Poisoned unit, you gain +1 Charge."
+
+    1 { 
+        passives {
+            AddStatusToAllDamage {
+                must_do_damage true
+                Conditional_HasStatus {
+                    status Poison
+                    ApplyToSource {
+                        Charge 1
+                    }
+                }
+            }
+        }
+    }
+    2 { 
+        desc "When you damage a Poisoned unit, you gain +1 Charge and +1 Magic Damage until the end of your turn."
+        passives {
+            AddStatusToAllDamage {
+                must_do_damage true
+                Conditional_HasStatus {
+                    status Poison
+                    ApplyToSource {
+                        Charge 1
+                        TempSpellDamageUp 1
+                    }
+                }
+            }
+        }
+    }    
 }

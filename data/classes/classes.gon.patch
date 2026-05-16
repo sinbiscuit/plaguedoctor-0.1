@@ -74,6 +74,7 @@ Plaguedoctor.merge {
         SoulSickness
         Pufferfish
         ScorpionForm
+        SpiderForm
     ]
 
     complicated_abilities [
@@ -150,7 +151,7 @@ Plaguedoctor.merge {
         ] 
     }
     
-    passive_pool [ //17
+    passive_pool [ //19
         SuperRat
         ROUS
         DeadlyDose
@@ -168,6 +169,8 @@ Plaguedoctor.merge {
         FloralScent
         RatKingPassive
         Incubated
+        Corrosion
+        PollutantPower
     ]
 
     complicated_passives [
