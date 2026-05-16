@@ -30,7 +30,7 @@ Plaguedoctor.merge {
         PlaguedoctorInfectBasic
     ]
 
-    ability_pool [ //44
+    ability_pool [ //45
         SpawnRatPlaguedoctor
         Myasis
         TheChills
@@ -75,6 +75,7 @@ Plaguedoctor.merge {
         Pufferfish
         ScorpionForm
         SpiderForm
+        ShedFlesh
     ]
 
     complicated_abilities [
@@ -94,6 +95,7 @@ Plaguedoctor.merge {
         Haze
         GammaBurst
         SoulSickness
+        StrangeMedicine
     ]
 
     ability_groups {
@@ -148,6 +150,7 @@ Plaguedoctor.merge {
             Pufferfish
             ScorpionForm
             SpiderForm
+            ShedFlesh
         ] 
     }
     
