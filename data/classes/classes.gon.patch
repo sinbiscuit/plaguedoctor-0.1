@@ -149,7 +149,7 @@ Plaguedoctor.merge {
         ] 
     }
     
-    passive_pool [ //15
+    passive_pool [ //16
         SuperRat
         ROUS
         DeadlyDose
@@ -165,7 +165,7 @@ Plaguedoctor.merge {
         MaggotMotel
         AfflictiveTouch
         FloralScent
-        RatKing
+        RatKingPassive
     ]
 
     complicated_passives [
