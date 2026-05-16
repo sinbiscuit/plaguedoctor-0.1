@@ -387,3 +387,20 @@ PlaguePinkyBombExplode2 {
         ai_base_score 9999
     }
 }
+
+TinyTumorExplode {
+    variant_of DecoyExplode
+
+    damage_instance {
+        damage 5
+        knockback 1
+
+        effects {
+            ConstitutionUp -1
+        }
+
+        elements [
+            Explosion
+        ]
+    }
+}

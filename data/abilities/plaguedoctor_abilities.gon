@@ -360,10 +360,6 @@ Miasma_Afterlife {
         mana 0
         can_cast_while_dead true
     }
-
-    bonus_passives {
-        DeadAltAbility Miasma_Afterlife
-    }
     
     target {
         max_range 20
@@ -392,7 +388,7 @@ Miasma2 {
     }
 
     bonus_passives {
-        DeadAltAbility Miasma2_Afterlife
+        DeadAltAbility Miasma_Afterlife2
     }
     
     target {
@@ -1850,7 +1846,7 @@ RallyRats {
     
     cost {
         infcantrip true
-        mana 9
+        mana 8
         main_turn_only true
     }
 
@@ -3381,6 +3377,158 @@ SpiderFormWebShot2 {
             Conditional_NotBossOrBig {
                 Webbed 1
             }
+        }
+    }
+}
+
+ShedFlesh {
+    template spawn
+
+    meta {
+        name "Shed Flesh"
+        desc "Take 1 damage to spawn a Tiny Tumor with Doom 1. This spell is castable while you're downed. If you do, the Tumor explodes when it dies."
+        class Plaguedoctor
+    }
+    
+    graphics {
+        lob true
+        animation selfHarm
+    }
+    
+    cost {
+        infcantrip true
+        mana 5
+    }
+    
+    target {
+        min_range 1
+        max_range 1
+        max_aoe 0
+
+        range_excludes_blocking false
+        restrictions aoe_must_exist
+    }
+
+    bonus_passives {
+        DeadAltAbility ShedFlesh_Afterlife
+    }
+
+    spawn {
+        object CharmedTinyTumor
+        faction self
+
+        additional_passives {
+            SafeDoomed 1
+        }
+    }
+
+    self_damage {
+        damage 1
+    }
+}
+
+ShedFlesh_Afterlife {
+    template spawn
+
+    meta {
+        name "Shed Flesh"
+        desc "Spawn a Tiny Tumor with Doom 1 in range 3. This spell is castable while you're downed. If you do, the Tumor explodes when it dies."
+        class Plaguedoctor
+    }
+    
+    graphics {
+        lob true
+        animation none
+    }
+    
+    cost {
+        cantrip true
+        mana 0
+        can_cast_while_dead true
+    }
+    
+    target {
+        min_range 1
+        max_range 3
+        max_aoe 0
+
+        range_excludes_blocking false
+        restrictions aoe_must_exist
+    }
+
+    spawn {
+        object CharmedTinyTumor
+        faction self
+
+        additional_passives {
+            SafeDoomed 1
+            DeathRattle TinyTumorExplode
+        }
+    }
+}
+
+ShedFlesh2 {
+    template spawn
+
+    meta {
+        name "Shed Flesh+"
+        desc "Take 1 damage to spawn a Tiny Tumor with Doom 2 and an extra turn. This spell is castable while you're downed. If you do, the Tumor explodes when it dies."
+        class Plaguedoctor
+    }
+    
+    graphics {
+        lob true
+        animation selfHarm
+    }
+    
+    cost {
+        infcantrip true
+        mana 5
+    }
+    
+    target {
+        min_range 1
+        max_range 1
+        max_aoe 0
+
+        range_excludes_blocking false
+        restrictions aoe_must_exist
+    }
+
+    bonus_passives {
+        DeadAltAbility ShedFlesh_Afterlife2
+    }
+
+    spawn {
+        object CharmedTinyTumor
+        faction self
+
+        additional_passives {
+            SafeDoomed 2
+            TakeExtraTurn 1
+        }
+    }
+
+    self_damage {
+        damage 1
+    }
+}
+
+ShedFlesh_Afterlife2 {
+    variant_of ShedFlesh_Afterlife
+
+    meta {
+        desc "Spawn a Tiny Tumor with Doom 2 and an extra turn in range 3. This spell is castable while you're downed. If you do, the Tumor explodes when it dies."
+    }
+
+    spawn {
+        object CharmedTinyTumor
+        faction self
+
+        additional_passives {
+            SafeDoomed 2
+            TakeExtraTurn 1
+            DeathRattle TinyTumorExplode
         }
     }
 }
