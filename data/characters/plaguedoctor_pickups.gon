@@ -1,0 +1,37 @@
+BaitedPoisonFood {
+    variant_of FoodBase
+
+    graphics {
+        name "PICKUP_POISONEDFOOD_NAME"
+
+        tooltip "Attracts enemies toward it. Gain Poison 2 and Slow 2 when eaten."
+    }
+    sound {
+		alt_sounds [[HitGround Obj_FoodLand]]
+	}
+
+    passives {
+        HealthPickup {
+            stacks 0
+            frame_range [6 7]
+            anything_eats true
+            stored_food_value 0
+        }
+
+        StatusCollector {
+            Poison 2
+            Slow 2
+        }
+
+        BaitAura {range 3}
+
+        TransformOnElementInfluence {
+            element Fire
+            object CookedPoisonFood
+        }
+        TransformOnElementInfluencex {
+            element Holy
+            object PurifiedPoisonFood
+        }
+    }
+}

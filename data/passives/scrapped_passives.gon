@@ -99,3 +99,39 @@ Parasitologist {
         }
     }
 }
+
+
+MaggotMotel {
+    name "Maggot Motel"
+    desc "At the end of your turn, spawn Maggot familiars equal to the number of turns you've taken this battle."
+    class Plaguedoctor
+
+    1 {
+        passives {
+            StatusEachTurnEndForEachTurn {
+                ObjectOnHitCharacter {
+                    stacks 1
+                    object CharmedMaggot
+                }
+            }
+        }
+    }
+    2 {
+        desc "At the end of your turn, spawn Maggot familiars equal to the number of turns you've taken this battle plus two."
+
+        passives {
+            StatusEachTurnEnd {
+                ObjectOnHitCharacter {
+                    stacks 2
+                    object CharmedMaggot
+                }
+            }
+            StatusEachTurnEndForEachTurn {
+                ObjectOnHitCharacter {
+                    stacks 1
+                    object CharmedMaggot
+                }
+            }
+        }
+    }
+}

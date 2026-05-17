@@ -167,13 +167,13 @@ Plaguedoctor.merge {
         CancerConjurer
         NuclearAnomaly
         GroundZero
-        MaggotMotel
         AfflictiveTouch
         FloralScent
         RatKingPassive
         Incubated
         Corrosion
         PollutantPower
+        DangerousDish
     ]
 
     complicated_passives [
